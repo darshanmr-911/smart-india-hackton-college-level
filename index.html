@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Stride</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f5f7f3;color:#10252a}
+button{border:0;cursor:pointer;font:inherit}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:white;border-right:1px solid #ddd;padding:25px 18px}
+.logo{font-size:28px;font-weight:bold;margin-bottom:35px}
+.logo i{display:inline-block;width:23px;height:23px;background:#d9fa58;border-radius:50%}
+.nav button{display:block;width:100%;padding:13px;margin:5px 0;text-align:left;background:white;border-radius:10px;color:#65777a;font-weight:bold}
+.nav button:hover,.nav .active{background:#edf5df;color:#10252a}
+main{padding:30px 45px;max-width:1400px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center}
+.muted{color:#718487}
+.hero{background:#d9fa58;padding:30px;border-radius:22px;margin:25px 0}
+.hero h1{font-size:38px;margin:12px 0}
+.btn{background:#10252a;color:white;padding:12px 18px;border-radius:10px}
+.stats,.sports,.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px}
+.stat b{font-size:28px;display:block;margin:8px 0}
+.sport{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px}
+.sport-icon{font-size:55px}
+.sport button,.challenge button{background:#10252a;color:white;padding:9px 13px;border-radius:8px}
+.section{margin-top:28px}
+.yoga{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pose{min-height:300px;background:#edf5df;border-radius:20px;display:grid;place-items:center;font-size:120px}
+.info{background:white;padding:25px;border-radius:20px}
+.actions{display:flex;gap:8px;margin-top:15px}
+.actions button{padding:10px;border-radius:8px;background:#edf5df}
+.actions .next{background:#10252a;color:white}
+.asanas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.asana{background:white;padding:15px;border-radius:15px;border:1px solid #ddd}
+.community{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
+.rank{display:grid;grid-template-columns:30px 40px 1fr auto;align-items:center;padding:12px;border-radius:10px}
+.rank.you{background:#edf8c5}
+.avatar{width:35px;height:35px;border-radius:50%;background:#ffd9b2;display:grid;place-items:center}
+.friend{display:flex;gap:10px;align-items:center;background:#f5f7f3;padding:12px;border-radius:10px;margin:8px 0}
+.challenge{background:#fff4e5;padding:15px;border-radius:12px;margin:10px 0}
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:6px 0 12px}
+.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center}
+.modal-box{background:white;width:90%;max-width:500px;padding:25px;border-radius:20px}
+.close{float:right;background:#eee;border-radius:50%;padding:5px 10px}
+.toast{position:fixed;bottom:20px;right:20px;background:#10252a;color:white;padding:14px;border-radius:10px;opacity:0}
+.toast.show{opacity:1}
+@media(max-width:800px){
+.app{display:block}.side{display:none}main{padding:20px}
+.stats,.sports,.cards,.asanas,.yoga,.community{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="side">
+<div class="logo"><i></i> stride</div>
+
+<div class="nav">
+<button class="active" onclick="page('home')">⌂ Overview</button>
+<button onclick="page('sports')">🏏 Sports</button>
+<button onclick="page('yoga')">🧘 Yoga</button>
+<button onclick="page('challenges')">🏆 Challenges</button>
+<button onclick="page('community')">♜ Community</button>
+</div>
+</aside>
+
+
+<main>
+
+<!-- HOME -->
+
+<section id="home">
+
+<div class="top">
+<div>
+<div class="muted">FRIDAY, AUGUST 28</div>
+<h2>Good morning, Darshan 👋</h2>
+</div>
+
+<button class="btn" onclick="page('community')">
+♜ Community
+</button>
+</div>
+
+
+<div class="hero">
+<div>🏃 TODAY'S MOVEMENT</div>
+<h1>Your best run starts with your best form.</h1>
+<p>Train, compete, challenge friends and improve together with Stride.</p>
+<button class="btn" onclick="page('sports')">
+Explore Sports →
+</button>
+</div>
+
+
+<div class="stats">
+
+<div class="card stat">
+<div class="muted">DISTANCE</div>
+<b>0 km</b>
+<span class="muted">+2.3 km this week</span>
+</div>
+
+<div class="card stat">
+<div class="muted">ACTIVE TIME</div>
+<b>0 hrs</b>
+<span class="muted">+18 min this week</span>
+</div>
+
+<div class="card stat">
+<div class="muted">XP</div>
+<b>0</b>
+<span class="muted">League Rank #</span>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>🔥 Quick Actions</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>🏏 Host Cricket</h3>
+<p class="muted">Create a cricket match.</p>
+<button class="btn" onclick="host('Cricket')">Host Match</button>
+</div>
+
+<div class="card">
+<h3>⚽ Host Football</h3>
+<p class="muted">Find players nearby.</p>
+<button class="btn" onclick="host('Football')">Host Match</button>
+</div>
+
+<div class="card">
+<h3>⚔️ Challenge Friend</h3>
+<p class="muted">Challenge your friend.</p>
+<button class="btn" onclick="openChallenge()">Challenge</button>
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- SPORTS -->
+
+<section id="sports" style="display:none">
+
+<div class="top">
+<div>
+<div class="muted">SPORTS HUB</div>
+<h1>Choose Your Sport 🏆</h1>
+</div>
+<button class="btn" onclick="host('Cricket')">＋ Host Event</button>
+</div>
+
+
+<div class="sports">
+
+<div class="sport">
+<div class="sport-icon">🏏</div>
+<h2>Cricket</h2>
+<p class="muted">Create matches and challenge friends.</p>
+<button onclick="host('Cricket')">Host Cricket</button>
+</div>
+
+<div class="sport">
+<div class="sport-icon">⚽</div>
+<h2>Football</h2>
+<p class="muted">Organize football games.</p>
+<button onclick="host('Football')">Host Football</button>
+</div>
+
+<div class="sport">
+<div class="sport-icon">🏸</div>
+<h2>Badminton</h2>
+<p class="muted">Find players and compete.</p>
+<button onclick="host('Badminton')">Host Badminton</button>
+</div>
+
+<div class="sport">
+<div class="sport-icon">🏃</div>
+<h2>Running</h2>
+<p class="muted">Run together with your community.</p>
+<button onclick="host('Running')">Create Run</button>
+</div>
+
+<div class="sport">
+<div class="sport-icon">🚴</div>
+<h2>Cycling</h2>
+<p class="muted">Create cycling groups.</p>
+<button onclick="host('Cycling')">Create Ride</button>
+</div>
+
+<div class="sport">
+<div class="sport-icon">🏀</div>
+<h2>Basketball</h2>
+<p class="muted">Challenge your friends.</p>
+<button onclick="host('Basketball')">Host Game</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- YOGA -->
+
+<section id="yoga" style="display:none">
+
+<div class="top">
+<div>
+<div class="muted">STRIDE YOGA</div>
+<h1>Yoga Studio 🧘</h1>
+</div>
+<button class="btn" onclick="page('home')">← Dashboard</button>
+</div>
+
+
+<div class="yoga">
+
+<div class="pose" id="pose">🧘</div>
+
+<div class="info">
+
+<div class="muted" id="counter">Loading...</div>
+
+<h1 id="yogaName">Loading...</h1>
+
+<p id="english"></p>
+
+<p id="description">Connecting to Yoga API...</p>
+
+<p><b>Focus:</b> <span id="focus"></span></p>
+<p><b>Difficulty:</b> <span id="difficulty"></span></p>
+<p><b>Duration:</b> <span id="duration"></span></p>
+
+<div class="actions">
+<button onclick="prev()">← Previous</button>
+<button class="next" onclick="next()">Next →</button>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="asanas" id="asanaList"></div>
+
+<div class="card section">
+
+<h2>📖 Instructions</h2>
+<ol id="instructions"></ol>
+
+<h3>🫁 Breathing</h3>
+<p id="breathing"></p>
+
+<h3>⚠️ Common Mistakes</h3>
+<ul id="mistakes"></ul>
+
+</div>
+
+</section>
+
+
+<!-- CHALLENGES -->
+
+<section id="challenges" style="display:none">
+
+<div class="top">
+<div>
+<div class="muted">COMPETE</div>
+<h1>Challenges 🏆</h1>
+</div>
+
+<button class="btn" onclick="openChallenge()">
+＋ Challenge Friend
+</button>
+</div>
+
+
+<div class="cards">
+
+<div class="card challenge">
+<h2>🏏 Cricket Challenge</h2>
+<p>Challenge a friend to a cricket match.</p>
+<b>+250 XP</b>
+<br><br>
+<button onclick="challenge('Cricket')">Challenge Friend</button>
+</div>
+
+<div class="card challenge">
+<h2>⚽ Football Challenge</h2>
+<p>1 vs 1 or team football challenge.</p>
+<b>+300 XP</b>
+<br><br>
+<button onclick="challenge('Football')">Challenge Friend</button>
+</div>
+
+<div class="card challenge">
+<h2>🧘 Yoga Challenge</h2>
+<p>Complete 5 yoga sessions this week.</p>
+<b>+150 XP</b>
+<br><br>
+<button onclick="challenge('Yoga')">Start Challenge</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMMUNITY -->
+
+<section id="community" style="display:none">
+
+<div class="top">
+<div>
+<div class="muted">STRIDE COMMUNITY</div>
+<h1>Community 🤝</h1>
+</div>
+<button class="btn" onclick="host('Cricket')">＋ Host Match</button>
+</div>
+
+
+<div class="community">
+
+<div class="card">
+
+<h2>🏆 Friends League</h2>
+
+<div class="rank">
+<b>1</b>
+<div class="avatar">👩🏻</div>
+<div><b>Maya Patel</b><small>18.2 km</small></div>
+<strong>1420 XP</strong>
+</div>
+
+<div class="rank">
+<b>2</b>
+<div class="avatar">🧔🏾</div>
+<div><b>Jordan Lee</b><small>15.7 km</small></div>
+<strong>1180 XP</strong>
+</div>
+
+<div class="rank you">
+<b>3</b>
+<div class="avatar">🧑🏽</div>
+<div><b>You</b><small>12.4 km</small></div>
+<strong>960 XP</strong>
+</div>
+
+<div class="rank">
+<b>4</b>
+<div class="avatar">👵🏼</div>
+<div><b>Rita Shah</b><small>11.6 km</small></div>
+<strong>890 XP</strong>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>👥 Friends</h2>
+
+<div class="friend">
+<div class="avatar">👩🏻</div>
+<div><b>Maya Patel</b><div class="muted">Running now 🏃</div></div>
+</div>
+
+<div class="friend">
+<div class="avatar">🧔🏾</div>
+<div><b>Jordan Lee</b><div class="muted">Yoga 🧘</div></div>
+</div>
+
+<div class="friend">
+<div class="avatar">👵🏼</div>
+<div><b>Rita Shah</b><div class="muted">Online 🟢</div></div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- HOST MODAL -->
+
+<div class="modal" id="hostModal">
+
+<div class="modal-box">
+
+<button class="close" onclick="closeModal()">×</button>
+
+<h2>📅 Host Sports Event</h2>
+
+<label>Sport</label>
+
+<select id="hostSport">
+<option>Cricket</option>
+<option>Football</option>
+<option>Badminton</option>
+<option>Running</option>
+<option>Cycling</option>
+<option>Basketball</option>
+</select>
+
+<label>Event Name</label>
+
+<input
+id="eventName"
+placeholder="Sunday Cricket Match">
+
+<label>Date</label>
+
+<input
+id="eventDate"
+type="date">
+
+<label>Location</label>
+
+<input
+id="eventLocation"
+placeholder="Sports Ground">
+
+<label>Maximum Players</label>
+
+<input
+id="players"
+type="number"
+value="10">
+
+<button class="btn" onclick="createEvent()">
+Create Event
+</button>
+
+</div>
+</div>
+
+
+<!-- CHALLENGE MODAL -->
+
+<div class="modal" id="challengeModal">
+
+<div class="modal-box">
+
+<button class="close" onclick="closeChallenge()">×</button>
+
+<h2>⚔️ Challenge Friend</h2>
+
+<label>Sport</label>
+
+<select id="challengeSport">
+<option>Cricket</option>
+<option>Football</option>
+<option>Badminton</option>
+<option>Running</option>
+<option>Yoga</option>
+</select>
+
+<label>Friend Name</label>
+
+<input
+id="friendName"
+placeholder="Enter friend name">
+
+<button class="btn" onclick="sendChallenge()">
+Send Challenge
+</button>
+
+</div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const API =
+"http://localhost:5050";
+
+let asanas=[];
+let current=0;
+
+
+// =================================================
+// NAVIGATION
+// =================================================
+
+function page(name){
+
+["home","sports","yoga","challenges","community"]
+.forEach(id=>{
+document.getElementById(id).style.display="none";
+});
+
+document.getElementById(name).style.display="block";
+
+if(name==="yoga" && asanas.length===0){
+loadYoga();
+}
+
+}
+
+
+// =================================================
+// YOGA API
+// =================================================
+
+async function loadYoga(){
+
+try{
+
+const response=await fetch(
+API+"/api/yoga"
+);
+
+const result=await response.json();
+
+if(!result.success){
+throw new Error("Yoga API failed");
+}
+
+asanas=result.data;
+
+renderYoga();
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Could not connect to Yoga API"
+);
+
+}
+
+}
+
+
+// =================================================
+// RENDER YOGA
+// =================================================
+
+function renderYoga(){
+
+if(!asanas.length)return;
+
+const yoga=asanas[current];
+
+document.getElementById("counter").textContent=
+`${current+1} / ${asanas.length}`;
+
+document.getElementById("yogaName").textContent=
+yoga.name;
+
+document.getElementById("english").textContent=
+yoga.englishName;
+
+document.getElementById("description").textContent=
+yoga.description;
+
+document.getElementById("focus").textContent=
+yoga.focus;
+
+document.getElementById("difficulty").textContent=
+yoga.difficulty;
+
+document.getElementById("duration").textContent=
+yoga.duration+" seconds";
+
+document.getElementById("pose").textContent=
+emoji(yoga.animation);
+
+
+const instructions=
+document.getElementById("instructions");
+
+instructions.innerHTML="";
+
+(yoga.instructions||[]).forEach(x=>{
+
+const li=document.createElement("li");
+
+li.textContent=x;
+
+instructions.appendChild(li);
+
+});
+
+
+document.getElementById("breathing").textContent=
+yoga.breathing;
+
+
+const mistakes=
+document.getElementById("mistakes");
+
+mistakes.innerHTML="";
+
+(yoga.commonMistakes||[]).forEach(x=>{
+
+const li=document.createElement("li");
+
+li.textContent=x;
+
+mistakes.appendChild(li);
+
+});
+
+
+renderYogaCards();
+
+}
+
+
+// =================================================
+// YOGA CARDS
+// =================================================
+
+function renderYogaCards(){
+
+const list=
+document.getElementById("asanaList");
+
+list.innerHTML="";
+
+asanas.forEach((x,i)=>{
+
+const div=document.createElement("div");
+
+div.className="asana";
+
+div.innerHTML=`
+<div style="font-size:50px">${emoji(x.animation)}</div>
+<h3>${x.name}</h3>
+<p class="muted">${x.englishName}</p>
+<p>${x.duration}s · ${x.difficulty}</p>
+<button onclick="selectYoga(${i})">Practice</button>
+`;
+
+list.appendChild(div);
+
+});
+
+}
+
+
+function selectYoga(i){
+
+current=i;
+
+renderYoga();
+
+}
+
+
+function next(){
+
+if(!asanas.length)return;
+
+current=(current+1)%asanas.length;
+
+renderYoga();
+
+}
+
+
+function prev(){
+
+if(!asanas.length)return;
+
+current=
+(current-1+asanas.length)%asanas.length;
+
+renderYoga();
+
+}
+
+
+function emoji(x){
+
+const map={
+"shavasana":"🧘",
+"tadasana":"🧍",
+"trikonasana":"🤸",
+"downward-dog":"🧘",
+"tree":"🌳",
+"forward-bend":"🧘"
+};
+
+return map[x]||"🧘";
+
+}
+
+
+// =================================================
+// HOST EVENT
+// =================================================
+
+function host(sport){
+
+document.getElementById("hostSport").value=sport;
+
+document.getElementById("hostModal").style.display="grid";
+
+}
+
+
+function closeModal(){
+
+document.getElementById("hostModal").style.display="none";
+
+}
+
+
+async function createEvent(){
+
+const sport=
+document.getElementById("hostSport").value;
+
+const name=
+document.getElementById("eventName").value;
+
+const date=
+document.getElementById("eventDate").value;
+
+const location=
+document.getElementById("eventLocation").value;
+
+const players=
+document.getElementById("players").value;
+
+
+if(!name || !date || !location){
+
+showToast(
+"Please fill all event details"
+);
+
+return;
+
+}
+
+
+/*
+ Try your existing backend first.
+ If the backend route requires authentication,
+ the demo still confirms the event locally.
+*/
+
+try{
+
+await fetch(
+API+"/api/events",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+sport,
+name,
+date,
+location,
+maxPlayers:Number(players)
+})
+}
+);
+
+}catch(e){
+
+console.log(
+"Event API not available",
+e
+);
+
+}
+
+
+closeModal();
+
+showToast(
+`${sport} event created! 🏆`
+);
+
+}
+
+
+// =================================================
+// CHALLENGE
+// =================================================
+
+function openChallenge(){
+
+document.getElementById(
+"challengeModal"
+).style.display="grid";
+
+}
+
+
+function closeChallenge(){
+
+document.getElementById(
+"challengeModal"
+).style.display="none";
+
+}
+
+
+function challenge(sport){
+
+document.getElementById(
+"challengeSport"
+).value=sport;
+
+openChallenge();
+
+}
+
+
+async function sendChallenge(){
+
+const sport=
+document.getElementById(
+"challengeSport"
+).value;
+
+const friend=
+document.getElementById(
+"friendName"
+).value;
+
+
+if(!friend){
+
+showToast(
+"Enter your friend's name"
+);
+
+return;
+
+}
+
+
+try{
+
+await fetch(
+API+"/api/challenges",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+sport,
+friend
+})
+}
+);
+
+}catch(e){
+
+console.log(
+"Challenge API unavailable"
+);
+
+}
+
+
+closeChallenge();
+
+showToast(
+`${sport} challenge sent to ${friend}! ⚔️`
+);
+
+}
+
+
+// =================================================
+// TOAST
+// =================================================
+
+function showToast(message){
+
+const toast=
+document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},2500);
+
+}
+
+</script>
+
+</body>
+</html>

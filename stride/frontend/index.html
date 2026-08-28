@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stride — Move Together</title>
+
+<style>
+
+:root {
+    --ink: #10252a;
+    --muted: #708487;
+    --lime: #d9fa58;
+    --bg: #f5f7f3;
+    --line: #e6ebe5;
+    --green: #58bb9e;
+    --dark: #15373b;
+    --coral: #ff715f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Arial, sans-serif;
+}
+
+button {
+    font: inherit;
+    border: 0;
+    cursor: pointer;
+}
+
+.app {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    background: white;
+    padding: 30px 20px;
+    border-right: 1px solid var(--line);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.brand {
+    font-size: 27px;
+    font-weight: 800;
+    margin: 5px 8px 45px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-mark {
+    width: 27px;
+    height: 27px;
+    background: var(--lime);
+    border-radius: 50% 50% 50% 5px;
+    transform: rotate(45deg);
+}
+
+.nav {
+    display: grid;
+    gap: 7px;
+}
+
+.nav button {
+    background: transparent;
+    padding: 13px;
+    border-radius: 11px;
+    text-align: left;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.nav button:hover,
+.nav button.active {
+    background: #edf4e4;
+    color: var(--ink);
+}
+
+.side-bottom {
+    background: var(--dark);
+    color: white;
+    padding: 18px;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+.level {
+    height: 7px;
+    background: #365357;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.level span {
+    display: block;
+    width: 72%;
+    height: 100%;
+    background: var(--lime);
+}
+
+.profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: #ffd9b2;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1450px;
+    width: 100%;
+    margin: auto;
+    padding: 30px 45px 60px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.greeting {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.greeting strong {
+    display: block;
+    color: var(--ink);
+    font-size: 26px;
+    margin-top: 5px;
+}
+
+.date {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.5fr .82fr;
+    gap: 22px;
+}
+
+.hero {
+    background: var(--lime);
+    padding: 30px;
+    border-radius: 24px;
+    min-height: 300px;
+}
+
+.pill {
+    background: rgba(255,255,255,.55);
+    padding: 8px 11px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 36px;
+    max-width: 500px;
+    margin: 20px 0 12px;
+}
+
+.hero p {
+    max-width: 430px;
+    color: #315055;
+    line-height: 1.6;
+}
+
+.start {
+    background: var(--ink);
+    color: white;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.run-figure {
+    float: right;
+    font-size: 110px;
+    margin-top: -90px;
+}
+
+/* =========================
+   STREAK
+========================= */
+
+.streak {
+    background: var(--dark);
+    color: white;
+    border-radius: 24px;
+    padding: 25px;
+}
+
+.streak h3 {
+    opacity: .7;
+    font-size: 13px;
+}
+
+.streak .num {
+    font-size: 60px;
+    font-weight: 800;
+    margin: 20px 0 5px;
+}
+
+.week {
+    display: flex;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+.day {
+    text-align: center;
+    font-size: 10px;
+    color: #9daeb0;
+}
+
+.day i {
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #607d80;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.day.done i {
+    background: var(--lime);
+    border-color: var(--lime);
+}
+
+/* =========================
+   METRICS
+========================= */
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 35px 0 15px;
+}
+
+.section-head h2 {
+    font-size: 19px;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.metric {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    padding: 18px;
+}
+
+.metric .label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.metric .value {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 13px 0;
+}
+
+.trend {
+    color: #439481;
+    font-size: 11px;
+}
+
+.bar {
+    height: 6px;
+    background: #edf0ec;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.bar span {
+    display: block;
+    height: 100%;
+    background: var(--green);
+    border-radius: 10px;
+}
+
+/* =========================
+   YOGA
+========================= */
+
+.yoga-section {
+    margin-top: 40px;
+}
+
+.yoga-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.yoga-header h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.yoga-badge {
+    background: #edf4e4;
+    padding: 8px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.yoga-feature {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 25px;
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.pose-display {
+    min-height: 320px;
+    border-radius: 18px;
+    background: #edf4e4;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pose-person {
+    font-size: 130px;
+    animation: yogaMove 4s ease-in-out infinite;
+}
+
+@keyframes yogaMove {
+    0%,100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+.pose-ring {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border: 2px dashed #71a995;
+    border-radius: 50%;
+}
+
+.yoga-info h1 {
+    font-size: 32px;
+    margin: 10px 0 5px;
+}
+
+.pose-name {
+    color: var(--muted);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.yoga-info p {
+    line-height: 1.6;
+    color: #567074;
+}
+
+.yoga-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.meta {
+    background: #f3f6f2;
+    padding: 8px 11px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.yoga-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.primary {
+    background: var(--ink);
+    color: white;
+    padding: 13px 20px;
+    border-radius: 11px;
+    font-weight: bold;
+}
+
+.secondary {
+    background: #edf4e4;
+    color: var(--ink);
+    padding: 13px 20px;
+    border-radius: 11px;
+    font-weight: bold;
+}
+
+.progress {
+    height: 7px;
+    background: #edf0ec;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    background: var(--green);
+    border-radius: 10px;
+    width: 0%;
+}
+
+/* =========================
+   ASANA CARDS
+========================= */
+
+.asana-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.asana-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px;
+    transition: .2s;
+}
+
+.asana-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(16,37,42,.08);
+}
+
+.asana-card.selected {
+    border: 2px solid var(--lime);
+}
+
+.card-pose {
+    height: 130px;
+    background: #edf4e4;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 65px;
+}
+
+.asana-card h3 {
+    margin-bottom: 4px;
+}
+
+.asana-card p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-bottom span {
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--muted);
+}
+
+.card-bottom button {
+    background: var(--ink);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+}
+
+/* =========================
+   INSTRUCTIONS
+========================= */
+
+.instructions {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px;
+    margin-top: 20px;
+}
+
+.instructions h3 {
+    margin-top: 0;
+}
+
+.instructions ol {
+    padding-left: 22px;
+}
+
+.instructions li {
+    padding: 7px 0;
+    color: #567074;
+}
+
+.coach-box {
+    background: #edf8c5;
+    border-radius: 14px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.coach-box strong {
+    color: #25816b;
+}
+
+/* =========================
+   TIMER
+========================= */
+
+.timer-box {
+    margin-top: 20px;
+    background: var(--dark);
+    color: white;
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.timer-label {
+    font-size: 10px;
+    opacity: .6;
+}
+
+.timer {
+    font-size: 55px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.timer-controls button {
+    padding: 10px 15px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.timer-start {
+    background: var(--lime);
+}
+
+.timer-reset {
+    background: white;
+}
+
+/* =========================
+   LEAGUE
+========================= */
+
+.lower {
+    display: grid;
+    grid-template-columns: 1.5fr .82fr;
+    gap: 22px;
+    margin-top: 35px;
+}
+
+.community {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 21px;
+}
+
+.challenge {
+    background: #fff5e8;
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.ranking {
+    margin-top: 15px;
+}
+
+.rank-row {
+    display: grid;
+    grid-template-columns: 25px 35px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 7px;
+    border-radius: 9px;
+}
+
+.rank-row.me {
+    background: #edf8c5;
+}
+
+.rank-row .avatar {
+    width: 30px;
+    height: 30px;
+}
+
+.rank-row strong {
+    font-size: 11px;
+}
+
+.rank-row small {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.xp {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: var(--ink);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: .3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-nav {
+    display: none;
+}
+
+@media(max-width:900px) {
+
+    .app {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    main {
+        padding: 22px 16px 90px;
+    }
+
+    .grid,
+    .yoga-feature,
+    .lower {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .asana-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .mobile-nav {
+        position: fixed;
+        display: flex;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 65px;
+        background: white;
+        border-top: 1px solid var(--line);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .mobile-nav button {
+        background: transparent;
+        font-size: 20px;
+    }
+}
+
+@media(max-width:550px) {
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .asana-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .run-figure {
+        display: none;
+    }
+
+    .yoga-feature {
+        padding: 15px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <span class="brand-mark"></span>
+        stride
+    </div>
+
+    <nav class="nav">
+
+        <button class="active">⌂ &nbsp; Overview</button>
+
+        <button>◉ &nbsp; Activity</button>
+
+        <button>♧ &nbsp; Posture Coach</button>
+
+        <button>♜ &nbsp; Community</button>
+
+        <button>◈ &nbsp; Rewards</button>
+
+    </nav>
+
+    <div class="side-bottom">
+
+        <small>CURRENT LEVEL</small>
+
+        <h3>Trailblazer · 7</h3>
+
+        <div class="level">
+            <span></span>
+        </div>
+
+        <small>280 XP to level 8</small>
+
+    </div>
+
+    <div class="profile">
+
+        <span class="avatar">🧑🏽</span>
+
+        <div>
+            <strong>Alex Morgan</strong>
+            <small>View profile</small>
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+<header class="topbar">
+
+    <div class="greeting">
+
+        FRIDAY, AUGUST 28
+
+        <strong>
+            Good morning, Alex.
+        </strong>
+
+    </div>
+
+    <div class="date">
+        📅 This week
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<div class="grid">
+
+<section class="hero">
+
+    <span class="pill">
+        TODAY'S MOVEMENT
+    </span>
+
+    <h1>
+        Your best run starts with your best form.
+    </h1>
+
+    <p>
+        Let your personal AI coach guide your pace,
+        posture, and progress — one step at a time.
+    </p>
+
+    <button class="start" id="startRun">
+        Start a run →
+    </button>
+
+    <div class="run-figure">
+        🏃🏽
+    </div>
+
+</section>
+
+
+<section class="streak">
+
+    <h3>
+        YOUR ACTIVE STREAK
+    </h3>
+
+    <div class="num">
+        12
+        <small>days</small>
+    </div>
+
+    <p>
+        You're 3 days away from your personal best.
+    </p>
+
+    <div class="week">
+
+        <div class="day done">
+            <i></i>M
+        </div>
+
+        <div class="day done">
+            <i></i>T
+        </div>
+
+        <div class="day done">
+            <i></i>W
+        </div>
+
+        <div class="day done">
+            <i></i>T
+        </div>
+
+        <div class="day done">
+            <i></i>F
+        </div>
+
+        <div class="day">
+            <i></i>S
+        </div>
+
+        <div class="day">
+            <i></i>S
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =====================================================
+     METRICS
+===================================================== -->
+
+<div class="section-head">
+    <h2>Your weekly snapshot</h2>
+</div>
+
+<section class="metrics">
+
+<article class="metric">
+
+    <div class="label">
+        DISTANCE
+    </div>
+
+    <div class="value">
+        18.4 km
+    </div>
+
+    <div class="trend">
+        +2.3 km vs last week
+    </div>
+
+    <div class="bar">
+        <span style="width:76%"></span>
+    </div>
+
+</article>
+
+
+<article class="metric">
+
+    <div class="label">
+        ACTIVE TIME
+    </div>
+
+    <div class="value">
+        3:42 hrs
+    </div>
+
+    <div class="trend">
+        +18 min vs last week
+    </div>
+
+    <div class="bar">
+        <span style="width:64%"></span>
+    </div>
+
+</article>
+
+
+<article class="metric">
+
+    <div class="label">
+        ENERGY
+    </div>
+
+    <div class="value">
+        1,248 kcal
+    </div>
+
+    <div class="trend">
+        +9% vs last week
+    </div>
+
+    <div class="bar">
+        <span style="width:84%"></span>
+    </div>
+
+</article>
+
+</section>
+
+
+<!-- =====================================================
+     YOGA STUDIO
+===================================================== -->
+
+<section class="yoga-section">
+
+<div class="yoga-header">
+
+    <div>
+
+        <h2>
+            🧘 Yoga Studio
+        </h2>
+
+        <p>
+            Learn each asana with your personal movement coach.
+        </p>
+
+    </div>
+
+    <span
+        class="yoga-badge"
+        id="yogaBadge"
+    >
+        LOADING...
+    </span>
+
+</div>
+
+
+<!-- CURRENT POSE -->
+
+<div class="yoga-feature">
+
+<div class="pose-display">
+
+    <div class="pose-ring"></div>
+
+    <div
+        class="pose-person"
+        id="posePerson"
+    >
+        🧘🏽
+    </div>
+
+</div>
+
+
+<div class="yoga-info">
+
+    <span class="pose-name">
+        CURRENT ASANA
+    </span>
+
+    <h1 id="asanaName">
+        Loading...
+    </h1>
+
+    <strong id="asanaSanskrit">
+        -
+    </strong>
+
+    <p id="asanaDescription">
+        Loading yoga information...
+    </p>
+
+
+    <div class="yoga-meta">
+
+        <span
+            class="meta"
+            id="asanaDuration"
+        >
+            0 SEC
+        </span>
+
+        <span
+            class="meta"
+            id="asanaDifficulty"
+        >
+            BEGINNER
+        </span>
+
+        <span
+            class="meta"
+            id="asanaFocus"
+        >
+            GENERAL
+        </span>
+
+    </div>
+
+
+    <div class="timer-box">
+
+        <div class="timer-label">
+            ASANA TIMER
+        </div>
+
+        <div
+            class="timer"
+            id="asanaTimer"
+        >
+            00:30
+        </div>
+
+        <div class="timer-controls">
+
+            <button
+                class="timer-start"
+                id="startYoga"
+            >
+                ▶ START
+            </button>
+
+            <button
+                class="timer-reset"
+                id="resetYoga"
+            >
+                ↻ RESET
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="yoga-actions">
+
+        <button
+            class="secondary"
+            id="previousYoga"
+        >
+            ← Previous
+        </button>
+
+        <button
+            class="primary"
+            id="nextYoga"
+        >
+            Next →
+        </button>
+
+    </div>
+
+
+    <div class="progress">
+        <span id="yogaProgress"></span>
+    </div>
+
+    <small id="asanaCounter">
+        0 / 0
+    </small>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ASANA CARDS
+===================================================== -->
+
+<div class="section-head">
+
+    <h2>
+        Choose an asana
+    </h2>
+
+</div>
+
+<div
+    class="asana-grid"
+    id="asanaGrid"
+>
+</div>
+
+
+<!-- =====================================================
+     INSTRUCTIONS
+===================================================== -->
+
+<div class="instructions">
+
+    <h3>
+        📖 How to do this pose
+    </h3>
+
+    <ol id="asanaSteps">
+        <li>Loading instructions...</li>
+    </ol>
+
+
+    <div class="coach-box">
+
+        <strong>
+            🧠 AI Coach
+        </strong>
+
+        <p id="breathingText">
+            Loading breathing guidance...
+        </p>
+
+    </div>
+
+
+    <div class="coach-box">
+
+        <strong>
+            ⚠️ Common mistakes
+        </strong>
+
+        <ul id="mistakesList">
+            <li>Loading...</li>
+        </ul>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMUNITY
+===================================================== -->
+
+<div class="lower">
+
+<section>
+
+<div class="section-head">
+
+    <h2>
+        Move smarter
+    </h2>
+
+</div>
+
+<div class="metric">
+
+    <h3>
+        AI Posture Coach
+    </h3>
+
+    <p>
+        Keep your shoulders relaxed and your gaze
+        10–15 metres ahead.
+    </p>
+
+    <div class="value">
+        86 / 100
+    </div>
+
+    <div class="bar">
+        <span style="width:86%"></span>
+    </div>
+
+</div>
+
+</section>
+
+
+<section class="community">
+
+    <h2>
+        Friends League
+    </h2>
+
+    <div class="challenge">
+
+        <span style="font-size:25px">
+            🏆
+        </span>
+
+        <div>
+
+            <strong>
+                Emerald movement league
+            </strong>
+
+            <p>
+                Top 3 move up this week.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="ranking">
+
+        <div class="rank-row">
+
+            <span>1</span>
+
+            <span class="avatar">
+                👩🏻
+            </span>
+
+            <span>
+                <strong>Maya Patel</strong>
+                <small>18.2 km moved</small>
+            </span>
+
+            <span class="xp">
+                1,420 XP
+            </span>
+
+        </div>
+
+
+        <div class="rank-row">
+
+            <span>2</span>
+
+            <span class="avatar">
+                🧔🏾
+            </span>
+
+            <span>
+                <strong>Jordan Lee</strong>
+                <small>15.7 km moved</small>
+            </span>
+
+            <span class="xp">
+                1,180 XP
+            </span>
+
+        </div>
+
+
+        <div class="rank-row me">
+
+            <span>3</span>
+
+            <span class="avatar">
+                🧑🏽
+            </span>
+
+            <span>
+                <strong>You</strong>
+                <small>12.4 km moved</small>
+            </span>
+
+            <span class="xp">
+                960 XP
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+    <button>⌂</button>
+    <button>◉</button>
+    <button>🧘</button>
+    <button>♜</button>
+    <button>◈</button>
+
+</nav>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Stride
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+// =====================================================
+// API
+// =====================================================
+
+const API_URL = "http://localhost:5050";
+
+
+// =====================================================
+// STATE
+// =====================================================
+
+let asanas = [];
+
+let yogaIndex = 0;
+
+let yogaRunning = false;
+
+let yogaInterval = null;
+
+let yogaSeconds = 0;
+
+
+// =====================================================
+// TOAST
+// =====================================================
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 3000);
+}
+
+
+// =====================================================
+// LOAD YOGA FROM MONGODB API
+// =====================================================
+
+async function loadYoga() {
+
+    try {
+
+        console.log(
+            "Connecting to:",
+            `${API_URL}/api/yoga`
+        );
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/yoga`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "Yoga API response:",
+            result
+        );
+
+
+        if (
+            !result.success ||
+            !Array.isArray(result.data)
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Invalid API response"
+            );
+
+        }
+
+
+        asanas =
+            result.data.map(
+                yoga => ({
+
+                    id: yoga._id,
+
+                    name:
+                        yoga.name ||
+                        "Yoga Pose",
+
+                    pose:
+                        yoga.englishName ||
+                        yoga.name,
+
+                    description:
+                        yoga.description ||
+                        "",
+
+                    duration:
+                        Number(yoga.duration) ||
+                        30,
+
+                    difficulty:
+                        yoga.difficulty ||
+                        "Beginner",
+
+                    focus:
+                        yoga.focus ||
+                        "General",
+
+                    steps:
+                        Array.isArray(
+                            yoga.instructions
+                        )
+                        ? yoga.instructions
+                        : [],
+
+                    breathing:
+                        yoga.breathing ||
+                        "Breathe slowly and steadily.",
+
+                    mistakes:
+                        Array.isArray(
+                            yoga.commonMistakes
+                        )
+                        ? yoga.commonMistakes
+                        : [],
+
+                    animation:
+                        yoga.animation ||
+                        "",
+
+                    emoji:
+                        getYogaEmoji(
+                            yoga.animation
+                        )
+
+                })
+            );
+
+
+        console.log(
+            `✅ Loaded ${asanas.length} Yoga Asanas`
+        );
+
+
+        document
+            .getElementById(
+                "yogaBadge"
+            )
+            .textContent =
+            `${asanas.length} ASANAS`;
+
+
+        if (asanas.length === 0) {
+
+            showToast(
+                "No Yoga Asanas found."
+            );
+
+            return;
+        }
+
+
+        renderAsana();
+
+        createCards();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Yoga API failed:",
+            error
+        );
+
+
+        showToast(
+            "Cannot connect to Yoga API"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// YOGA EMOJI / VISUAL
+// =====================================================
+
+function getYogaEmoji(animation) {
+
+    const animations = {
+
+        shavasana: "🧘",
+
+        tadasana: "🧍",
+
+        trikonasana: "🤸",
+
+        "downward-dog": "🧘",
+
+        tree: "🧘",
+
+        "forward-bend": "🧘"
+
+    };
+
+    return animations[animation] || "🧘";
+
+}
+
+
+// =====================================================
+// RENDER CURRENT ASANA
+// =====================================================
+
+function renderAsana() {
+
+    if (!asanas.length) {
+        return;
+    }
+
+
+    const asana =
+        asanas[yogaIndex];
+
+
+    document
+        .getElementById(
+            "asanaName"
+        )
+        .textContent =
+        asana.name;
+
+
+    document
+        .getElementById(
+            "asanaSanskrit"
+        )
+        .textContent =
+        asana.pose;
+
+
+    document
+        .getElementById(
+            "asanaDescription"
+        )
+        .textContent =
+        asana.description;
+
+
+    document
+        .getElementById(
+            "asanaDuration"
+        )
+        .textContent =
+        `${asana.duration} SEC`;
+
+
+    document
+        .getElementById(
+            "asanaDifficulty"
+        )
+        .textContent =
+        asana.difficulty;
+
+
+    document
+        .getElementById(
+            "asanaFocus"
+        )
+        .textContent =
+        asana.focus;
+
+
+    document
+        .getElementById(
+            "asanaCounter"
+        )
+        .textContent =
+        `${yogaIndex + 1} / ${asanas.length}`;
+
+
+    document
+        .getElementById(
+            "posePerson"
+        )
+        .textContent =
+        asana.emoji;
+
+
+    document
+        .getElementById(
+            "yogaProgress"
+        )
+        .style.width =
+        `${((yogaIndex + 1) / asanas.length) * 100}%`;
+
+
+    renderInstructions();
+
+    resetTimer();
+
+    highlightCard();
+
+}
+
+
+// =====================================================
+// INSTRUCTIONS
+// =====================================================
+
+function renderInstructions() {
+
+    const asana =
+        asanas[yogaIndex];
+
+
+    const steps =
+        document.getElementById(
+            "asanaSteps"
+        );
+
+
+    steps.innerHTML = "";
+
+
+    asana.steps.forEach(
+        step => {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.textContent =
+                step;
+
+            steps.appendChild(li);
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "breathingText"
+        )
+        .textContent =
+        asana.breathing;
+
+
+    const mistakes =
+        document.getElementById(
+            "mistakesList"
+        );
+
+
+    mistakes.innerHTML = "";
+
+
+    asana.mistakes.forEach(
+        mistake => {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.textContent =
+                mistake;
+
+            mistakes.appendChild(li);
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CARDS
+// =====================================================
+
+function createCards() {
+
+    const grid =
+        document.getElementById(
+            "asanaGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    asanas.forEach(
+        (asana, index) => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "asana-card";
+
+
+            card.innerHTML = `
+
+                <div class="card-pose">
+                    ${asana.emoji}
+                </div>
+
+                <h3>
+                    ${escapeHTML(asana.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(asana.pose)}
+                </p>
+
+                <div class="card-bottom">
+
+                    <span>
+                        ${asana.duration} SEC
+                    </span>
+
+                    <button>
+                        START
+                    </button>
+
+                </div>
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    yogaIndex = index;
+
+                    stopTimer();
+
+                    renderAsana();
+
+                    window.scrollTo({
+                        top:
+                            document
+                            .querySelector(
+                                ".yoga-feature"
+                            )
+                            .offsetTop - 20,
+
+                        behavior: "smooth"
+                    });
+
+                }
+            );
+
+
+            grid.appendChild(card);
+
+        }
+    );
+
+
+    highlightCard();
+
+}
+
+
+// =====================================================
+// HIGHLIGHT CARD
+// =====================================================
+
+function highlightCard() {
+
+    document
+        .querySelectorAll(
+            ".asana-card"
+        )
+        .forEach(
+            (card, index) => {
+
+                card.classList.toggle(
+                    "selected",
+                    index === yogaIndex
+                );
+
+            }
+        );
+
+}
+
+
+// =====================================================
+// TIMER
+// =====================================================
+
+function formatTime(seconds) {
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+    const secs =
+        seconds % 60;
+
+
+    return `${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+
+}
+
+
+// =====================================================
+// RESET TIMER
+// =====================================================
+
+function resetTimer() {
+
+    stopTimer();
+
+
+    if (!asanas.length) {
+        return;
+    }
+
+
+    yogaSeconds =
+        asanas[yogaIndex].duration;
+
+
+    document
+        .getElementById(
+            "asanaTimer"
+        )
+        .textContent =
+        formatTime(
+            yogaSeconds
+        );
+
+
+    document
+        .getElementById(
+            "startYoga"
+        )
+        .textContent =
+        "▶ START";
+
+}
+
+
+// =====================================================
+// START TIMER
+// =====================================================
+
+document
+    .getElementById(
+        "startYoga"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!asanas.length) {
+
+                showToast(
+                    "Yoga is still loading..."
+                );
+
+                return;
+            }
+
+
+            if (yogaRunning) {
+
+                stopTimer();
+
+                document
+                    .getElementById(
+                        "startYoga"
+                    )
+                    .textContent =
+                    "▶ RESUME";
+
+                showToast(
+                    "Yoga paused."
+                );
+
+                return;
+            }
+
+
+            if (
+                yogaSeconds <= 0
+            ) {
+
+                yogaSeconds =
+                    asanas[yogaIndex]
+                    .duration;
+
+            }
+
+
+            yogaRunning = true;
+
+
+            document
+                .getElementById(
+                    "startYoga"
+                )
+                .textContent =
+                "⏸ PAUSE";
+
+
+            yogaInterval =
+                setInterval(
+                    () => {
+
+                        yogaSeconds--;
+
+
+                        document
+                            .getElementById(
+                                "asanaTimer"
+                            )
+                            .textContent =
+                            formatTime(
+                                yogaSeconds
+                            );
+
+
+                        if (
+                            yogaSeconds <= 0
+                        ) {
+
+                            stopTimer();
+
+
+                            showToast(
+                                `${asanas[yogaIndex].name} completed! 🎉`
+                            );
+
+
+                            if (
+                                yogaIndex <
+                                asanas.length - 1
+                            ) {
+
+                                yogaIndex++;
+
+                                renderAsana();
+
+                            }
+
+                        }
+
+                    },
+                    1000
+                );
+
+
+            showToast(
+                `${asanas[yogaIndex].name} started 🧘`
+            );
+
+        }
+    );
+
+
+// =====================================================
+// STOP TIMER
+// =====================================================
+
+function stopTimer() {
+
+    clearInterval(
+        yogaInterval
+    );
+
+    yogaInterval = null;
+
+    yogaRunning = false;
+
+}
+
+
+// =====================================================
+// RESET BUTTON
+// =====================================================
+
+document
+    .getElementById(
+        "resetYoga"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            resetTimer();
+
+            showToast(
+                "Timer reset."
+            );
+
+        }
+    );
+
+
+// =====================================================
+// NEXT
+// =====================================================
+
+document
+    .getElementById(
+        "nextYoga"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!asanas.length) {
+                return;
+            }
+
+
+            yogaIndex =
+                (yogaIndex + 1) %
+                asanas.length;
+
+
+            renderAsana();
+
+
+            showToast(
+                `${asanas[yogaIndex].name} selected`
+            );
+
+        }
+    );
+
+
+// =====================================================
+// PREVIOUS
+// =====================================================
+
+document
+    .getElementById(
+        "previousYoga"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!asanas.length) {
+                return;
+            }
+
+
+            yogaIndex =
+                (
+                    yogaIndex -
+                    1 +
+                    asanas.length
+                ) %
+                asanas.length;
+
+
+            renderAsana();
+
+
+            showToast(
+                `${asanas[yogaIndex].name} selected`
+            );
+
+        }
+    );
+
+
+// =====================================================
+// RUN BUTTON
+// =====================================================
+
+document
+    .getElementById(
+        "startRun"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "Run session started — AI coach ready! 🏃"
+            );
+
+        }
+    );
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+// =====================================================
+// START
+// =====================================================
+
+loadYoga();
+
+</script>
+
+</body>
+</html>

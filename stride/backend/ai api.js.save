@@ -1,0 +1,72 @@
+const express = require("express");
+const OpenAI = require("openai");
+
+const router = express.Router();
+
+const client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+// Temporary test route
+router.get("/test", (req, res) => {
+    res.json({
+        success: true,
+        message: "AI route is connected"
+    });
+});
+
+
+    try {
+        const { message } = req.body;
+
+        if (!message) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a question"
+            });
+        }
+
+        const response = await client.responses.create({
+            model: "gpt-5.6-luna",
+
+            instructions: `
+You are Stride AI Fitness Coach.
+
+You help users with:
+- Running
+- Walking
+- Cricket
+- Football
+- Badminton
+- Yoga
+- General fitness
+- Workout planning
+
+Give short, practical, beginner-friendly answers.
+
+Do not diagnose medical conditions.
+If the user describes serious pain, injury,
+or an emergency, recommend professional medical help.
+
+Keep answers easy to understand.
+`,
+
+            input: message
+        });
+
+        res.json({
+            success: true,
+            answer: response.output_text
+        });
+
+    } catch (error) {
+
+        console.error("AI ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "AI service failed"
+        });
+    }
+});
+
+module.exports = router;      
