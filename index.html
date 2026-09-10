@@ -8,46 +8,130 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial;background:#f5f7f3;color:#10252a}
-button{border:0;cursor:pointer;font:inherit}
+button{border:0;cursor:pointer;font:inherit;transition:transform .15s ease,background .2s ease,color .2s ease}
+button:active{transform:scale(.94)}
 .app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
 .side{background:white;border-right:1px solid #ddd;padding:25px 18px}
-.logo{font-size:28px;font-weight:bold;margin-bottom:35px}
-.logo i{display:inline-block;width:23px;height:23px;background:#d9fa58;border-radius:50%}
-.nav button{display:block;width:100%;padding:13px;margin:5px 0;text-align:left;background:white;border-radius:10px;color:#65777a;font-weight:bold}
+.logo{font-size:28px;font-weight:bold;margin-bottom:35px;display:flex;align-items:center;gap:8px}
+.logo i{display:inline-block;width:23px;height:23px;background:#d9fa58;border-radius:50%;animation:pulseDot 2.4s ease-in-out infinite}
+
+@keyframes pulseDot{
+0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(217,250,88,.6)}
+50%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(217,250,88,0)}
+}
+
+.nav button{display:block;width:100%;padding:13px;margin:5px 0;text-align:left;background:white;border-radius:10px;color:#65777a;font-weight:bold;transition:background .25s ease,color .25s ease,padding-left .25s ease}
+.nav button:hover{padding-left:19px}
 .nav button:hover,.nav .active{background:#edf5df;color:#10252a}
 main{padding:30px 45px;max-width:1400px;width:100%;margin:auto}
 .top{display:flex;justify-content:space-between;align-items:center}
 .muted{color:#718487}
-.hero{background:#d9fa58;padding:30px;border-radius:22px;margin:25px 0}
+
+.hero{background:#d9fa58;padding:30px;border-radius:22px;margin:25px 0;position:relative;overflow:hidden;animation:fadeSlideUp .5s ease both}
+.hero::after{
+content:"🏃";
+position:absolute;
+right:30px;
+top:50%;
+font-size:70px;
+opacity:.25;
+transform:translateY(-50%);
+animation:floatRun 3s ease-in-out infinite;
+}
+@keyframes floatRun{
+0%,100%{transform:translateY(-50%) translateX(0)}
+50%{transform:translateY(-58%) translateX(-6px)}
+}
+
 .hero h1{font-size:38px;margin:12px 0}
 .btn{background:#10252a;color:white;padding:12px 18px;border-radius:10px}
+.btn:hover{background:#1c3a41}
+
 .stats,.sports,.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.card{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px}
+
+.card{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px;transition:transform .25s ease,box-shadow .25s ease;animation:fadeSlideUp .5s ease both}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(16,37,42,.08)}
+
 .stat b{font-size:28px;display:block;margin:8px 0}
-.sport{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px}
-.sport-icon{font-size:55px}
+
+.sport{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px;transition:transform .25s ease,box-shadow .25s ease;animation:fadeSlideUp .45s ease both}
+.sport:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 10px 24px rgba(16,37,42,.08)}
+.sport-icon{font-size:55px;display:inline-block;transition:transform .3s ease}
+.sport:hover .sport-icon{transform:scale(1.15) rotate(-4deg)}
+
 .sport button,.challenge button{background:#10252a;color:white;padding:9px 13px;border-radius:8px}
+.sport button:hover,.challenge button:hover{background:#1c3a41}
+
 .section{margin-top:28px}
+
 .yoga{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.pose{min-height:300px;background:#edf5df;border-radius:20px;display:grid;place-items:center;font-size:120px}
-.info{background:white;padding:25px;border-radius:20px}
+.pose{min-height:300px;background:#edf5df;border-radius:20px;display:grid;place-items:center;font-size:120px;animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08)}
+}
+
+.info{background:white;padding:25px;border-radius:20px;animation:fadeSlideUp .4s ease both}
 .actions{display:flex;gap:8px;margin-top:15px}
 .actions button{padding:10px;border-radius:8px;background:#edf5df}
+.actions button:hover{background:#dcefb0}
 .actions .next{background:#10252a;color:white}
+.actions .next:hover{background:#1c3a41}
+
 .asanas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.asana{background:white;padding:15px;border-radius:15px;border:1px solid #ddd}
+.asana{background:white;padding:15px;border-radius:15px;border:1px solid #ddd;transition:transform .2s ease,box-shadow .2s ease;animation:fadeSlideUp .4s ease both}
+.asana:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(16,37,42,.08)}
+
 .community{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
-.rank{display:grid;grid-template-columns:30px 40px 1fr auto;align-items:center;padding:12px;border-radius:10px}
+
+.rank{display:grid;grid-template-columns:30px 40px 1fr auto;align-items:center;padding:12px;border-radius:10px;transition:transform .2s ease,background .2s ease;animation:fadeSlideLeft .4s ease both}
+.rank:hover{transform:translateX(4px);background:#f5f7f3}
 .rank.you{background:#edf8c5}
-.avatar{width:35px;height:35px;border-radius:50%;background:#ffd9b2;display:grid;place-items:center}
-.friend{display:flex;gap:10px;align-items:center;background:#f5f7f3;padding:12px;border-radius:10px;margin:8px 0}
-.challenge{background:#fff4e5;padding:15px;border-radius:12px;margin:10px 0}
-input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:6px 0 12px}
-.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center}
-.modal-box{background:white;width:90%;max-width:500px;padding:25px;border-radius:20px}
-.close{float:right;background:#eee;border-radius:50%;padding:5px 10px}
-.toast{position:fixed;bottom:20px;right:20px;background:#10252a;color:white;padding:14px;border-radius:10px;opacity:0}
-.toast.show{opacity:1}
+.rank.you:hover{background:#e4f2ac}
+
+.avatar{width:35px;height:35px;border-radius:50%;background:#ffd9b2;display:grid;place-items:center;transition:transform .2s ease}
+.rank:hover .avatar,.friend:hover .avatar{transform:scale(1.12)}
+
+.friend{display:flex;gap:10px;align-items:center;background:#f5f7f3;padding:12px;border-radius:10px;margin:8px 0;transition:transform .2s ease,box-shadow .2s ease;animation:fadeSlideLeft .4s ease both}
+.friend:hover{transform:translateX(4px);box-shadow:0 6px 14px rgba(16,37,42,.06)}
+
+.challenge{background:#fff4e5;padding:15px;border-radius:12px;margin:10px 0;transition:transform .2s ease}
+.challenge:hover{transform:translateY(-3px)}
+
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:6px 0 12px;transition:border-color .2s ease,box-shadow .2s ease}
+input:focus,select:focus{outline:none;border-color:#10252a;box-shadow:0 0 0 3px rgba(16,37,42,.08)}
+
+.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center;animation:fadeIn .2s ease}
+.modal-box{background:white;width:90%;max-width:500px;padding:25px;border-radius:20px;animation:popIn .25s cubic-bezier(.34,1.56,.64,1) both}
+
+.close{float:right;background:#eee;border-radius:50%;padding:5px 10px;transition:transform .2s ease,background .2s ease}
+.close:hover{transform:rotate(90deg);background:#e2e2e2}
+
+.toast{position:fixed;bottom:20px;right:20px;background:#10252a;color:white;padding:14px;border-radius:10px;opacity:0;transform:translateY(12px);transition:opacity .3s ease,transform .3s ease}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeSlideLeft{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+section{animation:fadeIn .35s ease both}
+
+/* stagger children within grids so items cascade in */
+.stats .card:nth-child(1),.sports .sport:nth-child(1),.cards .card:nth-child(1),.asanas .asana:nth-child(1){animation-delay:.02s}
+.stats .card:nth-child(2),.sports .sport:nth-child(2),.cards .card:nth-child(2),.asanas .asana:nth-child(2){animation-delay:.08s}
+.stats .card:nth-child(3),.sports .sport:nth-child(3),.cards .card:nth-child(3),.asanas .asana:nth-child(3){animation-delay:.14s}
+.sports .sport:nth-child(4),.asanas .asana:nth-child(4){animation-delay:.2s}
+.sports .sport:nth-child(5),.asanas .asana:nth-child(5){animation-delay:.26s}
+.sports .sport:nth-child(6),.asanas .asana:nth-child(6){animation-delay:.32s}
+.rank:nth-child(1){animation-delay:.02s}
+.rank:nth-child(2){animation-delay:.08s}
+.rank:nth-child(3){animation-delay:.14s}
+.rank:nth-child(4){animation-delay:.2s}
+.friend:nth-child(1){animation-delay:.02s}
+.friend:nth-child(2){animation-delay:.08s}
+.friend:nth-child(3){animation-delay:.14s}
+
 @media(max-width:800px){
 .app{display:block}.side{display:none}main{padding:20px}
 .stats,.sports,.cards,.asanas,.yoga,.community{grid-template-columns:1fr}
@@ -104,19 +188,19 @@ Explore Sports →
 
 <div class="card stat">
 <div class="muted">DISTANCE</div>
-<b>0 km</b>
+<b data-count="0" data-suffix=" km">0 km</b>
 <span class="muted">+2.3 km this week</span>
 </div>
 
 <div class="card stat">
 <div class="muted">ACTIVE TIME</div>
-<b>0 hrs</b>
+<b data-count="0" data-suffix=" hrs">0 hrs</b>
 <span class="muted">+18 min this week</span>
 </div>
 
 <div class="card stat">
 <div class="muted">XP</div>
-<b>0</b>
+<b data-count="0" data-suffix="">0</b>
 <span class="muted">League Rank #</span>
 </div>
 
@@ -511,13 +595,56 @@ function page(name){
 document.getElementById(id).style.display="none";
 });
 
-document.getElementById(name).style.display="block";
+const el=document.getElementById(name);
+el.style.display="block";
+// restart the fade-in animation each time a page is shown
+el.style.animation="none";
+void el.offsetWidth;
+el.style.animation="";
+
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+const navBtn=[...document.querySelectorAll(".nav button")]
+.find(b=>b.getAttribute("onclick")===`page('${name}')`);
+if(navBtn) navBtn.classList.add("active");
 
 if(name==="yoga" && asanas.length===0){
 loadYoga();
 }
 
 }
+
+
+// =================================================
+// STAT COUNT-UP (runs once on load)
+// =================================================
+
+function animateStats(){
+
+document.querySelectorAll("[data-count]").forEach(el=>{
+
+const target=parseFloat(el.getAttribute("data-count"))||0;
+const suffix=el.getAttribute("data-suffix")||"";
+
+// these demo stats are 0, but the counter still runs
+// so real values will animate smoothly once wired up
+let start=null;
+const duration=800;
+
+function step(ts){
+if(!start)start=ts;
+const progress=Math.min((ts-start)/duration,1);
+const value=target*progress;
+el.textContent=(Number.isInteger(target)?Math.round(value):value.toFixed(1))+suffix;
+if(progress<1)requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);
+
+});
+
+}
+
+document.addEventListener("DOMContentLoaded",animateStats);
 
 
 // =================================================
@@ -586,8 +713,12 @@ yoga.difficulty;
 document.getElementById("duration").textContent=
 yoga.duration+" seconds";
 
-document.getElementById("pose").textContent=
-emoji(yoga.animation);
+const poseEl=document.getElementById("pose");
+poseEl.textContent=emoji(yoga.animation);
+// quick pop when the pose changes, breathing animation resumes after
+poseEl.style.animation="none";
+void poseEl.offsetWidth;
+poseEl.style.animation="";
 
 
 const instructions=
@@ -647,6 +778,7 @@ asanas.forEach((x,i)=>{
 const div=document.createElement("div");
 
 div.className="asana";
+div.style.animationDelay=(i*0.05)+"s";
 
 div.innerHTML=`
 <div style="font-size:50px">${emoji(x.animation)}</div>
