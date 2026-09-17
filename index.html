@@ -1,1052 +1,1485 @@
+
+
+Stride ui v2 · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Stride</title>
-
+<title>Stride — Age-Specific Sports & Fitness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+ 
 <style>
+:root{
+  --ink:#14231f;
+  --ink-soft:#3c514b;
+  --paper:#f7f3ea;
+  --card:#ffffff;
+  --sand:#ece3d2;
+  --orange:#ff5a1f;
+  --teal:#0e6e5e;
+  --rose:#f7d9e3;
+  --rose-ink:#8c1f45;
+  --line:2px solid var(--ink);
+  --pop:5px 5px 0 var(--ink);
+  --pop-sm:3px 3px 0 var(--ink);
+}
+ 
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f5f7f3;color:#10252a}
-button{border:0;cursor:pointer;font:inherit;transition:transform .15s ease,background .2s ease,color .2s ease}
-button:active{transform:scale(.94)}
-.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-.side{background:white;border-right:1px solid #ddd;padding:25px 18px}
-.logo{font-size:28px;font-weight:bold;margin-bottom:35px;display:flex;align-items:center;gap:8px}
-.logo i{display:inline-block;width:23px;height:23px;background:#d9fa58;border-radius:50%;animation:pulseDot 2.4s ease-in-out infinite}
-
-@keyframes pulseDot{
-0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(217,250,88,.6)}
-50%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(217,250,88,0)}
+html,body{margin:0}
+body{
+  font-family:'Archivo',"Segoe UI",Helvetica,Arial,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
 }
-
-.nav button{display:block;width:100%;padding:13px;margin:5px 0;text-align:left;background:white;border-radius:10px;color:#65777a;font-weight:bold;transition:background .25s ease,color .25s ease,padding-left .25s ease}
-.nav button:hover{padding-left:19px}
-.nav button:hover,.nav .active{background:#edf5df;color:#10252a}
-main{padding:30px 45px;max-width:1400px;width:100%;margin:auto}
-.top{display:flex;justify-content:space-between;align-items:center}
-.muted{color:#718487}
-
-.hero{background:#d9fa58;padding:30px;border-radius:22px;margin:25px 0;position:relative;overflow:hidden;animation:fadeSlideUp .5s ease both}
+h1,h2,h3,h4,.display{font-family:'Archivo Black','Archivo',Impact,sans-serif;font-weight:400;letter-spacing:-.02em;line-height:1.05;margin:0}
+h1{font-size:clamp(28px,4vw,46px)}
+h2{font-size:clamp(20px,2.4vw,27px)}
+h3{font-size:18px}
+p{margin:.5em 0}
+button,select,input{font:inherit;color:inherit}
+button{border:0;cursor:pointer;background:none}
+a{color:var(--ink)}
+ 
+.muted{color:var(--ink-soft);font-size:.9rem}
+.eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.14em;color:var(--ink-soft)}
+ 
+/* ---------- TOP BAR ---------- */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:var(--ink);color:var(--paper);
+  border-bottom:var(--line);
+}
+.topbar-inner{max-width:1240px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:9px;font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:-.03em}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--orange);display:inline-block;animation:pulseDot 2.6s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(255,90,31,.7)}60%{box-shadow:0 0 0 8px rgba(255,90,31,0)}}
+ 
+.nav{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{
+  white-space:nowrap;padding:9px 14px;border-radius:999px;
+  color:#cfd8d4;font-weight:600;font-size:.93rem;
+  transition:background .18s ease,color .18s ease;
+}
+.nav button:hover{background:#22332e;color:#fff}
+.nav button.active{background:var(--orange);color:#fff}
+ 
+.me{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  background:#22332e;border:2px solid #3a4c46;border-radius:999px;padding:6px 14px 6px 8px;
+}
+.me:hover{border-color:var(--orange)}
+.me-dot{width:30px;height:30px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-size:15px}
+.me-name{font-weight:700;font-size:.9rem;line-height:1.1}
+.me-sub{font-size:.72rem;color:#a8b6b1}
+ 
+main{max-width:1240px;margin:auto;padding:30px 24px 70px}
+ 
+/* ---------- SHARED BLOCKS ---------- */
+.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.section{margin-top:44px}
+.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:8px;border-bottom:var(--line)}
+ 
+.btn{
+  display:inline-block;background:var(--ink);color:var(--paper);
+  padding:11px 18px;border:var(--line);border-radius:4px;font-weight:700;
+  box-shadow:var(--pop-sm);transition:transform .12s ease,box-shadow .12s ease,background .18s ease;
+}
+.btn:hover{background:#24403a}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-orange:hover{background:#e84c14}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--sand)}
+.btn[disabled]{opacity:.55;cursor:default;box-shadow:none;transform:none}
+ 
+.card{
+  background:var(--card);border:var(--line);border-radius:6px;padding:20px;
+  box-shadow:var(--pop-sm);transition:transform .16s ease,box-shadow .16s ease;
+}
+.card:hover{transform:translate(-2px,-2px);box-shadow:var(--pop)}
+ 
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+ 
+.chip{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:2px 10px;font-size:.76rem;font-weight:700;background:var(--sand)}
+.chip-orange{background:var(--orange);color:#fff;border-color:var(--orange)}
+.chip-rose{background:var(--rose);color:var(--rose-ink);border-color:var(--rose-ink)}
+ 
+/* ---------- HERO ---------- */
+.hero{
+  background:var(--orange);color:#fff;border:var(--line);border-radius:8px;
+  box-shadow:var(--pop);padding:34px;position:relative;overflow:hidden;margin-bottom:26px;
+}
+.hero .eyebrow{color:#ffe3d6}
+.hero h1{font-size:clamp(30px,4.6vw,52px);margin:10px 0 6px;max-width:16ch}
+.hero p{max-width:58ch;color:#fff2ea}
 .hero::after{
-content:"🏃";
-position:absolute;
-right:30px;
-top:50%;
-font-size:70px;
-opacity:.25;
-transform:translateY(-50%);
-animation:floatRun 3s ease-in-out infinite;
+  content:attr(data-emoji);position:absolute;right:22px;bottom:-18px;font-size:170px;line-height:1;
+  opacity:.22;pointer-events:none;animation:drift 6s ease-in-out infinite;
 }
-@keyframes floatRun{
-0%,100%{transform:translateY(-50%) translateX(0)}
-50%{transform:translateY(-58%) translateX(-6px)}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+ 
+/* ---------- SCOREBOARD ---------- */
+.scoreboard{display:grid;grid-template-columns:repeat(4,1fr);border:var(--line);border-radius:8px;overflow:hidden;background:var(--ink);box-shadow:var(--pop-sm)}
+.score{padding:18px 20px;color:var(--paper);border-right:2px solid #2d413b}
+.score:last-child{border-right:0}
+.score .k{font-size:.72rem;letter-spacing:.14em;font-weight:700;color:#9db0aa}
+.score b{font-family:'Archivo Black',sans-serif;font-size:34px;display:block;margin:4px 0 2px;color:#fff}
+.score .s{font-size:.8rem;color:#9db0aa}
+ 
+/* ---------- SPORT TILES ---------- */
+.sport{
+  background:var(--card);border:var(--line);border-radius:6px;padding:20px;
+  display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--pop-sm);
+  transition:transform .16s ease,box-shadow .16s ease;
 }
-
-.hero h1{font-size:38px;margin:12px 0}
-.btn{background:#10252a;color:white;padding:12px 18px;border-radius:10px}
-.btn:hover{background:#1c3a41}
-
-.stats,.sports,.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-
-.card{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px;transition:transform .25s ease,box-shadow .25s ease;animation:fadeSlideUp .5s ease both}
-.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(16,37,42,.08)}
-
-.stat b{font-size:28px;display:block;margin:8px 0}
-
-.sport{background:white;border:1px solid #e3e9e3;border-radius:18px;padding:20px;transition:transform .25s ease,box-shadow .25s ease;animation:fadeSlideUp .45s ease both}
-.sport:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 10px 24px rgba(16,37,42,.08)}
-.sport-icon{font-size:55px;display:inline-block;transition:transform .3s ease}
-.sport:hover .sport-icon{transform:scale(1.15) rotate(-4deg)}
-
-.sport button,.challenge button{background:#10252a;color:white;padding:9px 13px;border-radius:8px}
-.sport button:hover,.challenge button:hover{background:#1c3a41}
-
-.section{margin-top:28px}
-
-.yoga{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.pose{min-height:300px;background:#edf5df;border-radius:20px;display:grid;place-items:center;font-size:120px;animation:breathe 4s ease-in-out infinite}
-@keyframes breathe{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.08)}
+.sport:hover{transform:translate(-2px,-2px);box-shadow:var(--pop)}
+.sport-icon{font-size:44px;line-height:1}
+.sport h2{margin:10px 0 4px;font-size:21px}
+.sport button,.challenge button{
+  width:100%;margin-top:14px;background:var(--ink);color:var(--paper);
+  padding:10px 14px;border-radius:4px;font-weight:700;border:var(--line);
 }
-
-.info{background:white;padding:25px;border-radius:20px;animation:fadeSlideUp .4s ease both}
-.actions{display:flex;gap:8px;margin-top:15px}
-.actions button{padding:10px;border-radius:8px;background:#edf5df}
-.actions button:hover{background:#dcefb0}
-.actions .next{background:#10252a;color:white}
-.actions .next:hover{background:#1c3a41}
-
-.asanas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.asana{background:white;padding:15px;border-radius:15px;border:1px solid #ddd;transition:transform .2s ease,box-shadow .2s ease;animation:fadeSlideUp .4s ease both}
-.asana:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(16,37,42,.08)}
-
-.community{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
-
-.rank{display:grid;grid-template-columns:30px 40px 1fr auto;align-items:center;padding:12px;border-radius:10px;transition:transform .2s ease,background .2s ease;animation:fadeSlideLeft .4s ease both}
-.rank:hover{transform:translateX(4px);background:#f5f7f3}
-.rank.you{background:#edf8c5}
-.rank.you:hover{background:#e4f2ac}
-
-.avatar{width:35px;height:35px;border-radius:50%;background:#ffd9b2;display:grid;place-items:center;transition:transform .2s ease}
-.rank:hover .avatar,.friend:hover .avatar{transform:scale(1.12)}
-
-.friend{display:flex;gap:10px;align-items:center;background:#f5f7f3;padding:12px;border-radius:10px;margin:8px 0;transition:transform .2s ease,box-shadow .2s ease;animation:fadeSlideLeft .4s ease both}
-.friend:hover{transform:translateX(4px);box-shadow:0 6px 14px rgba(16,37,42,.06)}
-
-.challenge{background:#fff4e5;padding:15px;border-radius:12px;margin:10px 0;transition:transform .2s ease}
-.challenge:hover{transform:translateY(-3px)}
-
-input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:6px 0 12px;transition:border-color .2s ease,box-shadow .2s ease}
-input:focus,select:focus{outline:none;border-color:#10252a;box-shadow:0 0 0 3px rgba(16,37,42,.08)}
-
-.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center;animation:fadeIn .2s ease}
-.modal-box{background:white;width:90%;max-width:500px;padding:25px;border-radius:20px;animation:popIn .25s cubic-bezier(.34,1.56,.64,1) both}
-
-.close{float:right;background:#eee;border-radius:50%;padding:5px 10px;transition:transform .2s ease,background .2s ease}
-.close:hover{transform:rotate(90deg);background:#e2e2e2}
-
-.toast{position:fixed;bottom:20px;right:20px;background:#10252a;color:white;padding:14px;border-radius:10px;opacity:0;transform:translateY(12px);transition:opacity .3s ease,transform .3s ease}
-.toast.show{opacity:1;transform:translateY(0)}
-
+.sport button:hover,.challenge button:hover{background:var(--orange);border-color:var(--orange)}
+ 
+/* ---------- AGE CARDS ---------- */
+.age-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:18px}
+.age-card{
+  background:var(--card);border:var(--line);border-radius:6px;padding:20px;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--pop-sm);
+  transition:transform .16s ease,box-shadow .16s ease,background .2s ease;
+}
+.age-card:hover{transform:translate(-2px,-2px);box-shadow:var(--pop)}
+.age-card.active-age{background:#fff5ee;border-color:var(--orange);box-shadow:5px 5px 0 var(--orange)}
+.age-card.previewing{background:var(--sand)}
+.age-card ul{padding-left:17px;margin:10px 0;font-size:.9rem;color:var(--ink-soft)}
+.age-card li{margin-bottom:3px}
+.tap-hint{font-size:.78rem;color:var(--ink-soft);margin-top:10px;font-weight:700}
+ 
+/* ---------- AGE PREVIEW PANEL ---------- */
+.preview-panel{background:var(--sand);border:var(--line);border-radius:8px;padding:26px;margin-top:26px;box-shadow:var(--pop)}
+.preview-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.preview-actions{display:flex;gap:10px;flex-wrap:wrap}
+.preview-sports{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:14px;margin-top:22px}
+.mini-sport{background:var(--card);border:var(--line);border-radius:6px;padding:15px;box-shadow:var(--pop-sm);transition:transform .14s ease,box-shadow .14s ease}
+.mini-sport:hover{transform:translate(-2px,-2px);box-shadow:var(--pop)}
+.mini-sport .ic{font-size:30px;line-height:1}
+.mini-sport h4{margin:8px 0 4px;font-size:1rem}
+.mini-sport button{width:100%;margin-top:10px;background:var(--ink);color:var(--paper);padding:8px;border-radius:4px;font-size:.84rem;font-weight:700}
+.mini-sport button:hover{background:var(--orange)}
+ 
+.safety-note{background:var(--rose);border:2px solid var(--rose-ink);color:var(--rose-ink);padding:13px 15px;border-radius:6px;margin-top:18px;font-size:.88rem}
+.banner-preg{display:none;align-items:center;gap:12px;background:var(--rose);border:var(--line);border-radius:6px;padding:14px 16px;margin-bottom:22px;color:var(--rose-ink);box-shadow:var(--pop-sm)}
+ 
+/* ---------- YOGA ---------- */
+.yoga{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px}
+.pose{
+  min-height:300px;background:var(--teal);color:#fff;border:var(--line);border-radius:8px;
+  display:grid;place-items:center;font-size:120px;box-shadow:var(--pop-sm);
+  animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.info{background:var(--card);border:var(--line);border-radius:8px;padding:24px;box-shadow:var(--pop-sm)}
+.info .row{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.92rem}
+.actions{display:flex;gap:10px;margin-top:20px}
+.actions button{padding:10px 16px;border-radius:4px;border:var(--line);background:var(--sand);font-weight:700}
+.actions button:hover{background:var(--ink);color:var(--paper)}
+.actions .next{background:var(--orange);color:#fff;border-color:var(--orange)}
+.actions .next:hover{background:#e84c14}
+.asanas{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:20px}
+.asana{background:var(--card);border:var(--line);border-radius:6px;padding:15px;box-shadow:var(--pop-sm);transition:transform .14s ease,box-shadow .14s ease}
+.asana:hover{transform:translate(-2px,-2px);box-shadow:var(--pop)}
+.asana button{width:100%;margin-top:10px;background:var(--ink);color:var(--paper);padding:8px;border-radius:4px;font-weight:700;font-size:.85rem}
+.asana button:hover{background:var(--orange)}
+ 
+/* ---------- COMMUNITY ---------- */
+.community{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+.rank{display:grid;grid-template-columns:34px 40px 1fr auto;align-items:center;gap:10px;padding:11px;border-bottom:1px dashed #c9bfae}
+.rank:last-child{border-bottom:0}
+.rank .pos{font-family:'Archivo Black',sans-serif;font-size:18px}
+.rank.you{background:#fff5ee;border-left:5px solid var(--orange);padding-left:8px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--sand);border:2px solid var(--ink);display:grid;place-items:center}
+.friend{display:flex;gap:12px;align-items:center;padding:11px;border-bottom:1px dashed #c9bfae}
+.friend:last-child{border-bottom:0}
+ 
+/* ---------- FORMS + MODALS ---------- */
+label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.04em;margin-top:14px}
+input,select{width:100%;padding:11px;border:var(--line);border-radius:4px;margin:6px 0 4px;background:#fff}
+input:focus,select:focus{outline:3px solid var(--orange);outline-offset:1px}
+input[readonly]{background:var(--sand)}
+.checkbox-group{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0 4px}
+.checkbox-group label{display:flex;align-items:center;gap:7px;font-size:.88rem;font-weight:600;letter-spacing:0;background:var(--sand);border:2px solid var(--ink);padding:8px;border-radius:4px;cursor:pointer;margin:0}
+ 
+.modal{position:fixed;inset:0;background:rgba(20,35,31,.6);display:none;place-items:center;z-index:100;padding:20px;animation:fadeIn .16s ease}
+.modal-box{background:var(--paper);width:100%;max-width:540px;padding:26px;border:var(--line);border-radius:8px;max-height:90vh;overflow-y:auto;box-shadow:8px 8px 0 var(--ink);animation:popIn .2s ease both}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.close{background:var(--sand);border:var(--line);border-radius:50%;width:34px;height:34px;font-weight:700;flex:0 0 auto}
+.close:hover{background:var(--orange);color:#fff}
+ 
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translate(-50%,14px);
+  background:var(--ink);color:var(--paper);padding:13px 20px;border-radius:999px;
+  border:2px solid var(--orange);font-weight:700;opacity:0;transition:all .28s ease;z-index:200;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+ 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeSlideLeft{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
-@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-
-section{animation:fadeIn .35s ease both}
-
-/* stagger children within grids so items cascade in */
-.stats .card:nth-child(1),.sports .sport:nth-child(1),.cards .card:nth-child(1),.asanas .asana:nth-child(1){animation-delay:.02s}
-.stats .card:nth-child(2),.sports .sport:nth-child(2),.cards .card:nth-child(2),.asanas .asana:nth-child(2){animation-delay:.08s}
-.stats .card:nth-child(3),.sports .sport:nth-child(3),.cards .card:nth-child(3),.asanas .asana:nth-child(3){animation-delay:.14s}
-.sports .sport:nth-child(4),.asanas .asana:nth-child(4){animation-delay:.2s}
-.sports .sport:nth-child(5),.asanas .asana:nth-child(5){animation-delay:.26s}
-.sports .sport:nth-child(6),.asanas .asana:nth-child(6){animation-delay:.32s}
-.rank:nth-child(1){animation-delay:.02s}
-.rank:nth-child(2){animation-delay:.08s}
-.rank:nth-child(3){animation-delay:.14s}
-.rank:nth-child(4){animation-delay:.2s}
-.friend:nth-child(1){animation-delay:.02s}
-.friend:nth-child(2){animation-delay:.08s}
-.friend:nth-child(3){animation-delay:.14s}
-
-@media(max-width:800px){
-.app{display:block}.side{display:none}main{padding:20px}
-.stats,.sports,.cards,.asanas,.yoga,.community{grid-template-columns:1fr}
+@keyframes popIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+section{animation:rise .3s ease both}
+ 
+@media(max-width:900px){
+  .yoga,.community{grid-template-columns:1fr}
+  .topbar-inner{flex-wrap:wrap;gap:12px;padding:12px 16px}
+  .nav{order:3;width:100%}
+  main{padding:22px 16px 60px}
+  .hero{padding:26px}
+  .hero::after{font-size:110px;right:6px}
+  .scoreboard{grid-template-columns:1fr}
+  .score{border-right:0;border-bottom:2px solid #2d413b}
+}
+ 
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
 }
 </style>
 </head>
-
+ 
 <body>
-
-<div class="app">
-
-<aside class="side">
-<div class="logo"><i></i> stride</div>
-
-<div class="nav">
-<button class="active" onclick="page('home')">⌂ Overview</button>
-<button onclick="page('sports')">🏏 Sports</button>
-<button onclick="page('yoga')">🧘 Yoga</button>
-<button onclick="page('challenges')">🏆 Challenges</button>
-<button onclick="page('community')">♜ Community</button>
-</div>
-</aside>
-
-
+ 
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><i></i> stride</div>
+ 
+    <nav class="nav">
+      <button id="nav-home" class="active" onclick="page('home')">Dashboard</button>
+      <button id="nav-age-groups" onclick="page('age-groups')">Age categories</button>
+      <button id="nav-sports" onclick="page('sports')">Sports hub</button>
+      <button id="nav-yoga" onclick="page('yoga')">Yoga studio</button>
+      <button id="nav-challenges" onclick="page('challenges')">Challenges</button>
+      <button id="nav-community" onclick="page('community')">Community</button>
+    </nav>
+ 
+    <div class="me" onclick="openProfileModal()" title="Edit your profile">
+      <div class="me-dot">🏃</div>
+      <div>
+        <div class="me-name" id="miniName">User</div>
+        <div class="me-sub" id="miniAgeGroup">20 yrs · Adult</div>
+        <div id="miniBadges" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</header>
+ 
 <main>
-
-<!-- HOME -->
-
+ 
+<!-- PREGNANCY BANNER -->
+<div id="pregnancyBanner" class="banner-preg">
+  <span style="font-size:26px">🤰</span>
+  <div>
+    <strong>Pregnancy fitness mode is on.</strong>
+    <div style="font-size:.86rem">Recommendations switch to gentle, low-impact movement. This is general guidance — check with your healthcare professional.</div>
+  </div>
+</div>
+ 
+<!-- ================= DASHBOARD ================= -->
 <section id="home">
-
-<div class="top">
-<div>
-<div class="muted">FRIDAY, AUGUST 28</div>
-<h2>Good morning, Darshan 👋</h2>
-</div>
-
-<button class="btn" onclick="page('community')">
-♜ Community
-</button>
-</div>
-
-
-<div class="hero">
-<div>🏃 TODAY'S MOVEMENT</div>
-<h1>Your best run starts with your best form.</h1>
-<p>Train, compete, challenge friends and improve together with Stride.</p>
-<button class="btn" onclick="page('sports')">
-Explore Sports →
-</button>
-</div>
-
-
-<div class="stats">
-
-<div class="card stat">
-<div class="muted">DISTANCE</div>
-<b data-count="0" data-suffix=" km">0 km</b>
-<span class="muted">+2.3 km this week</span>
-</div>
-
-<div class="card stat">
-<div class="muted">ACTIVE TIME</div>
-<b data-count="0" data-suffix=" hrs">0 hrs</b>
-<span class="muted">+18 min this week</span>
-</div>
-
-<div class="card stat">
-<div class="muted">XP</div>
-<b data-count="0" data-suffix="">0</b>
-<span class="muted">League Rank #</span>
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h2>🔥 Quick Actions</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>🏏 Host Cricket</h3>
-<p class="muted">Create a cricket match.</p>
-<button class="btn" onclick="host('Cricket')">Host Match</button>
-</div>
-
-<div class="card">
-<h3>⚽ Host Football</h3>
-<p class="muted">Find players nearby.</p>
-<button class="btn" onclick="host('Football')">Host Match</button>
-</div>
-
-<div class="card">
-<h3>⚔️ Challenge Friend</h3>
-<p class="muted">Challenge your friend.</p>
-<button class="btn" onclick="openChallenge()">Challenge</button>
-</div>
-
-</div>
-</div>
-
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow" id="todayDate">TODAY</div>
+      <h1 id="dashGreeting">Welcome back 👋</h1>
+    </div>
+    <button class="btn btn-ghost" onclick="openProfileModal()">Profile settings</button>
+  </div>
+ 
+  <div class="hero" id="heroBanner" data-emoji="🏆">
+    <div class="eyebrow" id="heroTag">PERFORMANCE HUB</div>
+    <h1 id="heroTitle">Your tailored fitness journey starts here.</h1>
+    <p id="heroFocus">Focus: Performance, endurance and skill development</p>
+    <button class="btn" style="margin-top:14px;background:var(--ink)" onclick="page('sports')">See my sports</button>
+  </div>
+ 
+  <div class="scoreboard">
+    <div class="score">
+      <div class="k">DISTANCE</div>
+      <b data-count="12.4" data-suffix=" km">0 km</b>
+      <div class="s">+2.3 km this week</div>
+    </div>
+    <div class="score">
+      <div class="k">ACTIVE TIME</div>
+      <b data-count="4.5" data-suffix=" hrs">0 hrs</b>
+      <div class="s">+45 min this week</div>
+    </div>
+    <div class="score">
+      <div class="k">XP POINTS</div>
+      <b data-count="960" data-suffix=" XP">0 XP</b>
+      <div class="s">League rank #3</div>
+    </div>
+    <div class="score">
+      <div class="k">DAY STREAK</div>
+      <b id="dayStreakValue" data-count="0" data-suffix=" days">0 days</b>
+      <div class="s" id="dayStreakMeta">Keep it going</div>
+    </div>
+  </div>
+ 
+  <div class="section">
+    <div class="section-title">
+      <h2>Recommended today</h2>
+      <span class="muted" id="activityFocusTag">Picked for your age and skill level</span>
+    </div>
+    <div class="cards" id="dashRecommendedActivities"></div>
+  </div>
+ 
+  <div class="section">
+    <div class="section-title"><h2>Quick actions</h2></div>
+    <div class="cards">
+      <div class="card">
+        <h3>🎯 Explore age groups</h3>
+        <p class="muted">Tap any age group to see the sports built for it.</p>
+        <button class="btn" onclick="page('age-groups')">Open age hub</button>
+      </div>
+      <div class="card">
+        <h3>📅 Host an event</h3>
+        <p class="muted">Organize a match tuned to your level.</p>
+        <button class="btn" onclick="hostModalOpen()">Host activity</button>
+      </div>
+      <div class="card">
+        <h3>⚔️ Challenge a friend</h3>
+        <p class="muted">Compete with age-matched challenges.</p>
+        <button class="btn" onclick="openChallenge()">Send challenge</button>
+      </div>
+      <div class="card" id="trainingQuickCard" style="display:none">
+        <h3>🤰 Training session</h3>
+        <p class="muted">Log a gentle, pregnancy-safe training session.</p>
+        <button class="btn btn-orange" onclick="openTrainingModal()">Start session</button>
+      </div>
+    </div>
+  </div>
 </section>
-
-
-<!-- SPORTS -->
-
+ 
+<!-- ================= AGE GROUPS ================= -->
+<section id="age-groups" style="display:none">
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow">AGE-SPECIFIC SPORTS SYSTEM</div>
+      <h1>Browse age groups</h1>
+    </div>
+    <button class="btn btn-orange" onclick="openProfileModal()">Set my age</button>
+  </div>
+ 
+  <p class="muted" style="max-width:70ch;margin-bottom:22px">Tap a group to see every sport and activity recommended for that stage. Switching the category re-tunes the whole app.</p>
+ 
+  <div class="age-grid" id="ageCategoryGrid"></div>
+  <div id="agePreview"></div>
+</section>
+ 
+<!-- ================= SPORTS ================= -->
 <section id="sports" style="display:none">
-
-<div class="top">
-<div>
-<div class="muted">SPORTS HUB</div>
-<h1>Choose Your Sport 🏆</h1>
-</div>
-<button class="btn" onclick="host('Cricket')">＋ Host Event</button>
-</div>
-
-
-<div class="sports">
-
-<div class="sport">
-<div class="sport-icon">🏏</div>
-<h2>Cricket</h2>
-<p class="muted">Create matches and challenge friends.</p>
-<button onclick="host('Cricket')">Host Cricket</button>
-</div>
-
-<div class="sport">
-<div class="sport-icon">⚽</div>
-<h2>Football</h2>
-<p class="muted">Organize football games.</p>
-<button onclick="host('Football')">Host Football</button>
-</div>
-
-<div class="sport">
-<div class="sport-icon">🏸</div>
-<h2>Badminton</h2>
-<p class="muted">Find players and compete.</p>
-<button onclick="host('Badminton')">Host Badminton</button>
-</div>
-
-<div class="sport">
-<div class="sport-icon">🏃</div>
-<h2>Running</h2>
-<p class="muted">Run together with your community.</p>
-<button onclick="host('Running')">Create Run</button>
-</div>
-
-<div class="sport">
-<div class="sport-icon">🚴</div>
-<h2>Cycling</h2>
-<p class="muted">Create cycling groups.</p>
-<button onclick="host('Cycling')">Create Ride</button>
-</div>
-
-<div class="sport">
-<div class="sport-icon">🏀</div>
-<h2>Basketball</h2>
-<p class="muted">Challenge your friends.</p>
-<button onclick="host('Basketball')">Host Game</button>
-</div>
-
-</div>
-
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow" id="sportsHubTag">SPORTS HUB</div>
+      <h1 id="sportsHubTitle">Recommended sports</h1>
+    </div>
+    <button class="btn btn-orange" onclick="hostModalOpen()">Host event</button>
+  </div>
+ 
+  <div class="grid-3" id="sportsGrid"></div>
 </section>
-
-
-<!-- YOGA -->
-
+ 
+<!-- ================= YOGA ================= -->
 <section id="yoga" style="display:none">
-
-<div class="top">
-<div>
-<div class="muted">STRIDE YOGA</div>
-<h1>Yoga Studio 🧘</h1>
-</div>
-<button class="btn" onclick="page('home')">← Dashboard</button>
-</div>
-
-
-<div class="yoga">
-
-<div class="pose" id="pose">🧘</div>
-
-<div class="info">
-
-<div class="muted" id="counter">Loading...</div>
-
-<h1 id="yogaName">Loading...</h1>
-
-<p id="english"></p>
-
-<p id="description">Connecting to Yoga API...</p>
-
-<p><b>Focus:</b> <span id="focus"></span></p>
-<p><b>Difficulty:</b> <span id="difficulty"></span></p>
-<p><b>Duration:</b> <span id="duration"></span></p>
-
-<div class="actions">
-<button onclick="prev()">← Previous</button>
-<button class="next" onclick="next()">Next →</button>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="asanas" id="asanaList"></div>
-
-<div class="card section">
-
-<h2>📖 Instructions</h2>
-<ol id="instructions"></ol>
-
-<h3>🫁 Breathing</h3>
-<p id="breathing"></p>
-
-<h3>⚠️ Common Mistakes</h3>
-<ul id="mistakes"></ul>
-
-</div>
-
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow">STRIDE YOGA</div>
+      <h1>Yoga & mobility studio</h1>
+    </div>
+    <button class="btn btn-ghost" onclick="page('home')">← Dashboard</button>
+  </div>
+ 
+  <div class="yoga">
+    <div class="pose" id="pose">🧘</div>
+    <div class="info">
+      <div class="eyebrow" id="counter">LOADING…</div>
+      <h1 id="yogaName" style="margin:6px 0">Loading…</h1>
+      <p id="english" class="muted" style="font-weight:700"></p>
+      <p id="description">Connecting to the yoga service…</p>
+      <div class="row">
+        <div><span class="eyebrow">FOCUS</span><div id="focus"></div></div>
+        <div><span class="eyebrow">DIFFICULTY</span><div id="difficulty"></div></div>
+        <div><span class="eyebrow">DURATION</span><div id="duration"></div></div>
+      </div>
+      <div class="actions">
+        <button onclick="prev()">← Previous</button>
+        <button class="next" onclick="next()">Next →</button>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="asanas" id="asanaList"></div>
+ 
+  <div class="card section">
+    <h2>Instructions</h2>
+    <ol id="instructions"></ol>
+    <h3 style="margin-top:18px">Breathing focus</h3>
+    <p id="breathing"></p>
+    <h3 style="margin-top:18px">Form safety tips</h3>
+    <ul id="mistakes"></ul>
+  </div>
 </section>
-
-
-<!-- CHALLENGES -->
-
+ 
+<!-- ================= CHALLENGES ================= -->
 <section id="challenges" style="display:none">
-
-<div class="top">
-<div>
-<div class="muted">COMPETE</div>
-<h1>Challenges 🏆</h1>
-</div>
-
-<button class="btn" onclick="openChallenge()">
-＋ Challenge Friend
-</button>
-</div>
-
-
-<div class="cards">
-
-<div class="card challenge">
-<h2>🏏 Cricket Challenge</h2>
-<p>Challenge a friend to a cricket match.</p>
-<b>+250 XP</b>
-<br><br>
-<button onclick="challenge('Cricket')">Challenge Friend</button>
-</div>
-
-<div class="card challenge">
-<h2>⚽ Football Challenge</h2>
-<p>1 vs 1 or team football challenge.</p>
-<b>+300 XP</b>
-<br><br>
-<button onclick="challenge('Football')">Challenge Friend</button>
-</div>
-
-<div class="card challenge">
-<h2>🧘 Yoga Challenge</h2>
-<p>Complete 5 yoga sessions this week.</p>
-<b>+150 XP</b>
-<br><br>
-<button onclick="challenge('Yoga')">Start Challenge</button>
-</div>
-
-</div>
-
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow">COMPETE & IMPROVE</div>
+      <h1>Age-tailored challenges</h1>
+    </div>
+    <button class="btn btn-orange" onclick="openChallenge()">Custom challenge</button>
+  </div>
+ 
+  <div class="cards" id="challengesGrid"></div>
 </section>
-
-
-<!-- COMMUNITY -->
-
+ 
+<!-- ================= COMMUNITY ================= -->
 <section id="community" style="display:none">
-
-<div class="top">
-<div>
-<div class="muted">STRIDE COMMUNITY</div>
-<h1>Community 🤝</h1>
-</div>
-<button class="btn" onclick="host('Cricket')">＋ Host Match</button>
-</div>
-
-
-<div class="community">
-
-<div class="card">
-
-<h2>🏆 Friends League</h2>
-
-<div class="rank">
-<b>1</b>
-<div class="avatar">👩🏻</div>
-<div><b>Maya Patel</b><small>18.2 km</small></div>
-<strong>1420 XP</strong>
-</div>
-
-<div class="rank">
-<b>2</b>
-<div class="avatar">🧔🏾</div>
-<div><b>Jordan Lee</b><small>15.7 km</small></div>
-<strong>1180 XP</strong>
-</div>
-
-<div class="rank you">
-<b>3</b>
-<div class="avatar">🧑🏽</div>
-<div><b>You</b><small>12.4 km</small></div>
-<strong>960 XP</strong>
-</div>
-
-<div class="rank">
-<b>4</b>
-<div class="avatar">👵🏼</div>
-<div><b>Rita Shah</b><small>11.6 km</small></div>
-<strong>890 XP</strong>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>👥 Friends</h2>
-
-<div class="friend">
-<div class="avatar">👩🏻</div>
-<div><b>Maya Patel</b><div class="muted">Running now 🏃</div></div>
-</div>
-
-<div class="friend">
-<div class="avatar">🧔🏾</div>
-<div><b>Jordan Lee</b><div class="muted">Yoga 🧘</div></div>
-</div>
-
-<div class="friend">
-<div class="avatar">👵🏼</div>
-<div><b>Rita Shah</b><div class="muted">Online 🟢</div></div>
-</div>
-
-</div>
-
-</div>
-
+  <div class="pagehead">
+    <div>
+      <div class="eyebrow">STRIDE COMMUNITY</div>
+      <h1>Leaderboard</h1>
+    </div>
+    <button class="btn btn-orange" onclick="hostModalOpen()">Host event</button>
+  </div>
+ 
+  <div class="community">
+    <div class="card">
+      <div class="section-title" style="margin-top:0"><h2>Friends league</h2><span class="chip">This week</span></div>
+ 
+      <div class="rank">
+        <div class="pos">1</div><div class="avatar">👩🏻</div>
+        <div><b>Maya Patel</b><div class="muted">18.2 km</div></div>
+        <strong>1420 XP</strong>
+      </div>
+      <div class="rank">
+        <div class="pos">2</div><div class="avatar">🧔🏾</div>
+        <div><b>Jordan Lee</b><div class="muted">15.7 km</div></div>
+        <strong>1180 XP</strong>
+      </div>
+      <div class="rank you">
+        <div class="pos">3</div><div class="avatar">🧑🏽</div>
+        <div><b id="commUserName">You</b><div class="muted">12.4 km</div></div>
+        <strong>960 XP</strong>
+      </div>
+      <div class="rank">
+        <div class="pos">4</div><div class="avatar">👵🏼</div>
+        <div><b>Rita Shah</b><div class="muted">11.6 km</div></div>
+        <strong>890 XP</strong>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="section-title" style="margin-top:0"><h2>Active friends</h2></div>
+      <div class="friend"><div class="avatar">👩🏻</div><div><b>Maya Patel</b><div class="muted">Running now 🏃</div></div></div>
+      <div class="friend"><div class="avatar">🧔🏾</div><div><b>Jordan Lee</b><div class="muted">Yoga session 🧘</div></div></div>
+      <div class="friend"><div class="avatar">👵🏼</div><div><b>Rita Shah</b><div class="muted">Walking 🚶</div></div></div>
+    </div>
+  </div>
 </section>
-
+ 
 </main>
+ 
+<!-- ================= MODALS ================= -->
+ 
+<div class="modal" id="profileModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">YOUR PROFILE</div>
+        <h2>Age system & preferences</h2>
+      </div>
+      <button class="close" onclick="closeProfileModal()">×</button>
+    </div>
+ 
+    <label for="profName">Full name</label>
+    <input id="profName" type="text" value="User">
+ 
+    <label for="profAge">Age — this drives your sports system</label>
+    <input id="profAge" type="number" min="4" max="100" value="20" oninput="updateModalAgeCategory()">
+ 
+    <label for="profAgeCategory">Age category (calculated)</label>
+    <input id="profAgeCategory" type="text" readonly>
+ 
+    <label for="profALC">ALC / skill level</label>
+    <select id="profALC">
+      <option value="Open">Open</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+ 
+    <label for="profPregnancy">Pregnancy status</label>
+    <select id="profPregnancy" onchange="updateModalAgeCategory()">
+      <option value="Not Pregnant">Not pregnant</option>
+      <option value="Pregnant">Pregnant 🤰</option>
+    </select>
+ 
+    <label>Preferred sports</label>
+    <div class="checkbox-group" id="sportsCheckboxes"></div>
+ 
+    <button class="btn btn-orange" style="width:100%;margin-top:18px" onclick="saveProfile()">Save profile</button>
+  </div>
 </div>
-
-
-<!-- HOST MODAL -->
-
+ 
 <div class="modal" id="hostModal">
-
-<div class="modal-box">
-
-<button class="close" onclick="closeModal()">×</button>
-
-<h2>📅 Host Sports Event</h2>
-
-<label>Sport</label>
-
-<select id="hostSport">
-<option>Cricket</option>
-<option>Football</option>
-<option>Badminton</option>
-<option>Running</option>
-<option>Cycling</option>
-<option>Basketball</option>
-</select>
-
-<label>Event Name</label>
-
-<input
-id="eventName"
-placeholder="Sunday Cricket Match">
-
-<label>Date</label>
-
-<input
-id="eventDate"
-type="date">
-
-<label>Location</label>
-
-<input
-id="eventLocation"
-placeholder="Sports Ground">
-
-<label>Maximum Players</label>
-
-<input
-id="players"
-type="number"
-value="10">
-
-<button class="btn" onclick="createEvent()">
-Create Event
-</button>
-
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><div class="eyebrow">NEW EVENT</div><h2>Host a sports event</h2></div>
+      <button class="close" onclick="closeModal('hostModal')">×</button>
+    </div>
+ 
+    <label for="hostSport">Sport or activity</label>
+    <select id="hostSport"></select>
+ 
+    <label for="eventName">Event name</label>
+    <input id="eventName" placeholder="Weekend friendly match">
+ 
+    <label for="eventDate">Date</label>
+    <input id="eventDate" type="date">
+ 
+    <label for="eventLocation">Location</label>
+    <input id="eventLocation" placeholder="Community turf or park">
+ 
+    <label for="players">Maximum participants</label>
+    <input id="players" type="number" value="10">
+ 
+    <button class="btn btn-orange" style="width:100%;margin-top:18px" onclick="createEvent()">Create event</button>
+  </div>
 </div>
-</div>
-
-
-<!-- CHALLENGE MODAL -->
-
+ 
 <div class="modal" id="challengeModal">
-
-<div class="modal-box">
-
-<button class="close" onclick="closeChallenge()">×</button>
-
-<h2>⚔️ Challenge Friend</h2>
-
-<label>Sport</label>
-
-<select id="challengeSport">
-<option>Cricket</option>
-<option>Football</option>
-<option>Badminton</option>
-<option>Running</option>
-<option>Yoga</option>
-</select>
-
-<label>Friend Name</label>
-
-<input
-id="friendName"
-placeholder="Enter friend name">
-
-<button class="btn" onclick="sendChallenge()">
-Send Challenge
-</button>
-
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><div class="eyebrow">HEAD TO HEAD</div><h2>Send a challenge</h2></div>
+      <button class="close" onclick="closeModal('challengeModal')">×</button>
+    </div>
+ 
+    <label for="challengeSport">Activity</label>
+    <select id="challengeSport"></select>
+ 
+    <label for="friendName">Friend's name</label>
+    <input id="friendName" placeholder="Enter a name">
+ 
+    <button class="btn btn-orange" style="width:100%;margin-top:18px" onclick="sendChallenge()">Send challenge</button>
+  </div>
 </div>
+ 
+<div class="modal" id="trainingModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><div class="eyebrow">🤰 PRENATAL TRAINING</div><h2>Start a training session</h2></div>
+      <button class="close" onclick="closeTrainingModal()">×</button>
+    </div>
+ 
+    <p class="muted">Pick a gentle, pregnancy-safe activity. Stride will time the session for you — stop whenever you like.</p>
+ 
+    <label for="trainingActivity">Activity</label>
+    <select id="trainingActivity"></select>
+ 
+    <label for="trainingNotes">Notes (optional)</label>
+    <input id="trainingNotes" placeholder="How are you feeling today?">
+ 
+    <div class="safety-note" style="margin-top:16px">
+      Pregnancy fitness recommendations are general guidance. Consult a qualified healthcare
+      professional before starting or changing an exercise program during pregnancy.
+    </div>
+ 
+    <button class="btn btn-orange" style="width:100%;margin-top:18px" onclick="beginTrainingSession()">Begin session</button>
+  </div>
 </div>
-
-
+ 
 <div class="toast" id="toast"></div>
-
-
+ 
+<!-- ================= SCRIPT & DATA LOGIC ================= -->
 <script>
-
-const API =
-"http://localhost:5050";
-
-let asanas=[];
-let current=0;
-
-
-// =================================================
-// NAVIGATION
-// =================================================
-
-function page(name){
-
-["home","sports","yoga","challenges","community"]
-.forEach(id=>{
-document.getElementById(id).style.display="none";
-});
-
-const el=document.getElementById(name);
-el.style.display="block";
-// restart the fade-in animation each time a page is shown
-el.style.animation="none";
-void el.offsetWidth;
-el.style.animation="";
-
-document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-const navBtn=[...document.querySelectorAll(".nav button")]
-.find(b=>b.getAttribute("onclick")===`page('${name}')`);
-if(navBtn) navBtn.classList.add("active");
-
-if(name==="yoga" && asanas.length===0){
-loadYoga();
+const API = "http://localhost:5050";
+ 
+// --- ALL DEFINED AGE CATEGORIES ---
+const AGE_GROUPS_DEFINITIONS = [
+  {
+    key: "under12",
+    title: "👦 Under 12",
+    ageRange: "Ages 4–11",
+    sampleAge: 10,
+    dashTitle: "🌟 Welcome to Kids Active!",
+    dashEmoji: "🎈",
+    focus: "Fun · Coordination · Balance · Basic Movement · Skill Development",
+    levels: ["Open", "Beginner"],
+    sports: ["Fun Running", "Basic Badminton", "Swimming", "Cycling", "Kids Yoga", "Simple Ball Games", "Fun Fitness Games"]
+  },
+  {
+    key: "12-16",
+    title: "🧒 12–16 Teen",
+    ageRange: "Ages 12–15",
+    sampleAge: 14,
+    dashTitle: "🚀 Teen Athletic Development",
+    dashEmoji: "⚽",
+    focus: "Skill Development · Team Sports · Coordination · Basic Strength · Technique",
+    levels: ["Beginner", "Intermediate"],
+    sports: ["Cricket", "Football", "Badminton", "Basketball", "Cycling", "Running", "Swimming", "Athletics", "Yoga"]
+  },
+  {
+    key: "16-18",
+    title: "🧑 16–18 Youth",
+    ageRange: "Ages 16–17",
+    sampleAge: 17,
+    dashTitle: "⚡ Youth Sports Performance",
+    dashEmoji: "🏃",
+    focus: "Sports Performance · Fitness · Technique · Endurance · Strength · Competition",
+    levels: ["Beginner", "Intermediate", "Advanced"],
+    sports: ["Cricket", "Football", "Basketball", "Badminton", "Running", "Cycling", "Athletics", "Swimming", "Strength & Conditioning", "Yoga"]
+  },
+  {
+    key: "18-30",
+    title: "🧑 18–30 Adult",
+    ageRange: "Ages 18–30",
+    sampleAge: 22,
+    dashTitle: "🔥 Your Performance Hub",
+    dashEmoji: "🏆",
+    focus: "Performance · Fitness · Strength · Endurance · Competition · Community",
+    levels: ["Open", "Beginner", "Intermediate", "Advanced"],
+    sports: ["Cricket", "Football", "Basketball", "Badminton", "Running", "Cycling", "Swimming", "Gym / Strength Training", "HIIT", "Yoga", "Athletics"]
+  },
+  {
+    key: "31-45",
+    title: "👨 31–45 Prime Fitness",
+    ageRange: "Ages 31–45",
+    sampleAge: 38,
+    dashTitle: "💪 Active Lifestyle Hub",
+    dashEmoji: "🚴",
+    focus: "Fitness · Recreation · Strength · Cardiovascular Fitness · Flexibility",
+    levels: ["Open", "Beginner", "Intermediate", "Advanced"],
+    sports: ["Cricket", "Badminton", "Football", "Cycling", "Running", "Swimming", "Yoga", "Walking", "Strength Training", "Recreational Sports"]
+  },
+  {
+    key: "46-60",
+    title: "👨 46–60 Vitality",
+    ageRange: "Ages 46–60",
+    sampleAge: 52,
+    dashTitle: "🌿 Sustainable Fitness Hub",
+    dashEmoji: "🚶",
+    focus: "Mobility · Balance · Flexibility · Low-Impact Activity · General Fitness",
+    levels: ["Open", "Beginner", "Intermediate"],
+    sports: ["Walking", "Swimming", "Cycling", "Badminton", "Yoga", "Mobility Exercises", "Light Strength Training", "Recreational Cricket", "Stretching"]
+  },
+  {
+    key: "60+",
+    title: "👴 60+ Active Living",
+    ageRange: "Ages 60+",
+    sampleAge: 65,
+    dashTitle: "🌿 Active 60+",
+    dashEmoji: "🌱",
+    focus: "Mobility · Balance · Flexibility · Maintaining Activity · Social Participation",
+    levels: ["Open", "Beginner"],
+    sports: ["Walking", "Gentle Yoga", "Balance Exercises", "Mobility Exercises", "Stretching", "Light Cycling", "Swimming", "Breathing Exercises"]
+  },
+  {
+    key: "pregnant",
+    title: "🤰 Pregnancy Fitness",
+    ageRange: "Special Condition",
+    sampleAge: 28,
+    dashTitle: "🌸 Prenatal Wellness",
+    dashEmoji: "🤰",
+    focus: "Prenatal Yoga · Safe Mobility · Gentle Breathwork · Low Impact Health",
+    levels: ["Open", "Beginner"],
+    sports: ["Prenatal Yoga", "Walking", "Breathing Exercises", "Gentle Mobility", "Swimming"]
+  }
+];
+ 
+// --- DATABASE OF ALL AVAILABLE SPORTS & METADATA ---
+const SPORTS_DATABASE = [
+  { name: "Fun Running", icon: "🏃", note: "Short playful runs and relay games.", duration: 10 },
+  { name: "Basic Badminton", icon: "🏸", note: "Rally practice with a light racket.", duration: 12 },
+  { name: "Kids Yoga", icon: "🧘", note: "Animal poses and simple balance play.", duration: 8 },
+  { name: "Fun Fitness Games", icon: "🎮", note: "Obstacle courses and tag-style games.", duration: 12 },
+  { name: "Simple Ball Games", icon: "⚽", note: "Throwing, catching and kicking basics.", duration: 10 },
+  { name: "Cricket", icon: "🏏", note: "Batting, bowling and full match play.", duration: 20 },
+  { name: "Football", icon: "⚽", note: "Team play, passing and match fitness.", duration: 25 },
+  { name: "Badminton", icon: "🏸", note: "Singles and doubles court games.", duration: 18 },
+  { name: "Basketball", icon: "🏀", note: "Court games, shooting and agility.", duration: 20 },
+  { name: "Cycling", icon: "🚴", note: "Group rides and endurance work.", duration: 25 },
+  { name: "Running", icon: "🏃", note: "Distance, intervals and community runs.", duration: 20 },
+  { name: "Swimming", icon: "🏊", note: "Low-impact full-body conditioning.", duration: 18 },
+  { name: "Athletics", icon: "🥇", note: "Track and field events.", duration: 16 },
+  { name: "Yoga", icon: "🧘", note: "Flexibility, breathing and recovery.", duration: 15 },
+  { name: "Strength & Conditioning", icon: "🏋️", note: "Supervised strength and power work.", duration: 25 },
+  { name: "Gym / Strength Training", icon: "🏋️‍♂️", note: "Progressive resistance training.", duration: 22 },
+  { name: "HIIT", icon: "⚡", note: "Short high-intensity interval sessions.", duration: 12 },
+  { name: "Walking", icon: "🚶", note: "Steady walks at a talking pace.", duration: 15 },
+  { name: "Strength Training", icon: "🏋️", note: "Weights and resistance work.", duration: 22 },
+  { name: "Recreational Sports", icon: "🎯", note: "Casual, social, low-pressure play.", duration: 18 },
+  { name: "Mobility Exercises", icon: "🤸", note: "Joint range and movement quality.", duration: 12 },
+  { name: "Light Strength Training", icon: "🏋️‍♀️", note: "Bands and light weights.", duration: 15 },
+  { name: "Recreational Cricket", icon: "🏏", note: "Relaxed, shorter-format cricket.", duration: 16 },
+  { name: "Stretching", icon: "🤸‍♀️", note: "Gentle static and dynamic stretching.", duration: 10 },
+  { name: "Gentle Yoga", icon: "🧘‍♀️", note: "Slow, supported poses with props.", duration: 12 },
+  { name: "Balance Exercises", icon: "⚖️", note: "Stability drills for steady footing.", duration: 10 },
+  { name: "Breathing Exercises", icon: "🫁", note: "Slow breathwork and relaxation.", duration: 8 },
+  { name: "Light Cycling", icon: "🚴‍♀️", note: "Flat, easy-pace rides.", duration: 18 },
+  { name: "Prenatal Yoga", icon: "🤰", note: "Pregnancy-adapted poses and breathing.", duration: 12 },
+  { name: "Gentle Mobility", icon: "🌸", note: "Easy joint circles and light stretching.", duration: 10 }
+];
+ 
+function sportInfo(name) {
+  return SPORTS_DATABASE.find(s => s.name === name) || { name: name, icon: "⚡", note: "Recommended activity.", duration: 10 };
 }
 
+function getSportDuration(name) {
+  const sport = sportInfo(name);
+  return Number.isFinite(sport.duration) ? sport.duration : 10;
 }
-
-
-// =================================================
-// STAT COUNT-UP (runs once on load)
-// =================================================
-
-function animateStats(){
-
-document.querySelectorAll("[data-count]").forEach(el=>{
-
-const target=parseFloat(el.getAttribute("data-count"))||0;
-const suffix=el.getAttribute("data-suffix")||"";
-
-// these demo stats are 0, but the counter still runs
-// so real values will animate smoothly once wired up
-let start=null;
-const duration=800;
-
-function step(ts){
-if(!start)start=ts;
-const progress=Math.min((ts-start)/duration,1);
-const value=target*progress;
-el.textContent=(Number.isInteger(target)?Math.round(value):value.toFixed(1))+suffix;
-if(progress<1)requestAnimationFrame(step);
-}
-
-requestAnimationFrame(step);
-
-});
-
-}
-
-document.addEventListener("DOMContentLoaded",animateStats);
-
-
-// =================================================
-// YOGA API
-// =================================================
-
-async function loadYoga(){
-
-try{
-
-const response=await fetch(
-API+"/api/yoga"
-);
-
-const result=await response.json();
-
-if(!result.success){
-throw new Error("Yoga API failed");
-}
-
-asanas=result.data;
-
-renderYoga();
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Could not connect to Yoga API"
-);
-
-}
-
-}
-
-
-// =================================================
-// RENDER YOGA
-// =================================================
-
-function renderYoga(){
-
-if(!asanas.length)return;
-
-const yoga=asanas[current];
-
-document.getElementById("counter").textContent=
-`${current+1} / ${asanas.length}`;
-
-document.getElementById("yogaName").textContent=
-yoga.name;
-
-document.getElementById("english").textContent=
-yoga.englishName;
-
-document.getElementById("description").textContent=
-yoga.description;
-
-document.getElementById("focus").textContent=
-yoga.focus;
-
-document.getElementById("difficulty").textContent=
-yoga.difficulty;
-
-document.getElementById("duration").textContent=
-yoga.duration+" seconds";
-
-const poseEl=document.getElementById("pose");
-poseEl.textContent=emoji(yoga.animation);
-// quick pop when the pose changes, breathing animation resumes after
-poseEl.style.animation="none";
-void poseEl.offsetWidth;
-poseEl.style.animation="";
-
-
-const instructions=
-document.getElementById("instructions");
-
-instructions.innerHTML="";
-
-(yoga.instructions||[]).forEach(x=>{
-
-const li=document.createElement("li");
-
-li.textContent=x;
-
-instructions.appendChild(li);
-
-});
-
-
-document.getElementById("breathing").textContent=
-yoga.breathing;
-
-
-const mistakes=
-document.getElementById("mistakes");
-
-mistakes.innerHTML="";
-
-(yoga.commonMistakes||[]).forEach(x=>{
-
-const li=document.createElement("li");
-
-li.textContent=x;
-
-mistakes.appendChild(li);
-
-});
-
-
-renderYogaCards();
-
-}
-
-
-// =================================================
-// YOGA CARDS
-// =================================================
-
-function renderYogaCards(){
-
-const list=
-document.getElementById("asanaList");
-
-list.innerHTML="";
-
-asanas.forEach((x,i)=>{
-
-const div=document.createElement("div");
-
-div.className="asana";
-div.style.animationDelay=(i*0.05)+"s";
-
-div.innerHTML=`
-<div style="font-size:50px">${emoji(x.animation)}</div>
-<h3>${x.name}</h3>
-<p class="muted">${x.englishName}</p>
-<p>${x.duration}s · ${x.difficulty}</p>
-<button onclick="selectYoga(${i})">Practice</button>
-`;
-
-list.appendChild(div);
-
-});
-
-}
-
-
-function selectYoga(i){
-
-current=i;
-
-renderYoga();
-
-}
-
-
-function next(){
-
-if(!asanas.length)return;
-
-current=(current+1)%asanas.length;
-
-renderYoga();
-
-}
-
-
-function prev(){
-
-if(!asanas.length)return;
-
-current=
-(current-1+asanas.length)%asanas.length;
-
-renderYoga();
-
-}
-
-
-function emoji(x){
-
-const map={
-"shavasana":"🧘",
-"tadasana":"🧍",
-"trikonasana":"🤸",
-"downward-dog":"🧘",
-"tree":"🌳",
-"forward-bend":"🧘"
+ 
+// --- APP STATE ---
+let userProfile = {
+  name: "User",
+  age: 20,
+  alc: "Intermediate",
+  pregnancy: "Not Pregnant",
+  preferredSports: ["Cricket", "Football", "Running"],
+  streak: 0
 };
+ 
+let previewKey = null;
+let asanas = [];
+let current = 0;
+ 
+// --- PREGNANCY TRAINING SESSION STATE ---
+let trainingSession = null;   // { activity, startTime }
+let sessionLog = [];          // [{ activity, duration, date, notes }]
+let trainingTimerInterval = null;
+ 
+// --- AGE CATEGORY CALCULATOR ---
+function getAgeCategoryData(age, pregnancy) {
+  const preg = (pregnancy !== undefined) ? pregnancy : userProfile.pregnancy;
+  if (preg === "Pregnant") return AGE_GROUPS_DEFINITIONS.find(g => g.key === "pregnant");
+  if (age < 12) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "under12");
+  if (age <= 16) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "12-16");
+  if (age <= 18) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "16-18");
+  if (age <= 30) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "18-30");
+  if (age <= 45) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "31-45");
+  if (age <= 60) return AGE_GROUPS_DEFINITIONS.find(g => g.key === "46-60");
+  return AGE_GROUPS_DEFINITIONS.find(g => g.key === "60+");
+}
+ 
+function groupByKey(key) {
+  return AGE_GROUPS_DEFINITIONS.find(g => g.key === key);
+}
+ 
+// --- INITIALIZATION ---
+document.addEventListener("DOMContentLoaded", () => {
+  const now = new Date();
+  document.getElementById("todayDate").textContent =
+    now.toLocaleDateString("en-GB", { weekday: "long", month: "short", day: "numeric" }).toUpperCase();
+ 
+  updateStreakUI();
+  animateStats();
+  applyUserProfile();
+  renderAgeGroupsSection();
+});
+ 
+// --- AGE GROUP CARDS ---
+function renderAgeGroupsSection() {
+  const container = document.getElementById("ageCategoryGrid");
+  container.innerHTML = "";
+ 
+  const currentCat = getAgeCategoryData(userProfile.age);
+ 
+  AGE_GROUPS_DEFINITIONS.forEach(group => {
+    const isCurrentActive = (currentCat.key === group.key);
+    const isPreviewing = (previewKey === group.key);
+ 
+    const card = document.createElement("div");
+    card.className = `age-card ${isCurrentActive ? 'active-age' : ''} ${isPreviewing ? 'previewing' : ''}`;
+ 
+    // CLICKING THE CARD SHOWS THAT AGE GROUP'S SPORTS
+    card.onclick = () => showAgeGroupSports(group.key);
+ 
+    card.innerHTML = `
+      <div>
+        <span class="chip ${isCurrentActive ? 'chip-orange' : ''}">${group.ageRange}</span>
+        <h2 style="margin:10px 0 8px">${group.title}</h2>
+        <p class="muted"><b>Focus:</b> ${group.focus}</p>
+        <ul>
+          ${group.sports.slice(0, 5).map(s => `<li>${s}</li>`).join('')}
+          ${group.sports.length > 5 ? `<li>+ ${group.sports.length - 5} more</li>` : ''}
+        </ul>
+        <div class="tap-hint">👆 Tap for all ${group.sports.length} activities</div>
+      </div>
+      <button class="btn ${isCurrentActive ? 'btn-orange' : 'btn-ghost'}" style="width:100%;margin-top:14px" data-switch="${group.key}">
+        ${isCurrentActive ? 'Your current category' : 'Switch to this category'}
+      </button>
+    `;
+ 
+    card.querySelector("[data-switch]").onclick = (e) => {
+      e.stopPropagation();
+      setAgeFromCategory(group.sampleAge, group.key);
+    };
+ 
+    container.appendChild(card);
+  });
+ 
+  if (previewKey) showAgeGroupSports(previewKey, true);
+}
+ 
+// --- SPORTS FOR THE CLICKED AGE GROUP ---
+function showAgeGroupSports(key, silent) {
+  const group = groupByKey(key);
+  if (!group) return;
+ 
+  const wasOpen = (previewKey === key);
+  previewKey = key;
+ 
+  const panel = document.getElementById("agePreview");
+  const isPregnancyGroup = (group.key === "pregnant");
+  const isCurrentActive = (getAgeCategoryData(userProfile.age).key === group.key);
+  const defaultTrainingButton = group.sports[0];
+  const defaultTrainingMinutes = getSportDuration(defaultTrainingButton);
+ 
+  panel.innerHTML = `
+    <div class="preview-panel">
+      <div class="preview-head">
+        <div>
+          <div class="eyebrow">${group.ageRange.toUpperCase()}</div>
+          <h2 style="margin:6px 0">${group.title}</h2>
+          <p class="muted" style="max-width:62ch"><b>Focus:</b> ${group.focus}</p>
+          <div style="margin-top:8px">
+            ${group.levels.map(l => `<span class="chip">${l}</span>`).join(" ")}
+            <span class="chip chip-orange">${group.sports.length} activities</span>
+          </div>
+        </div>
+        <div class="preview-actions">
+          ${isCurrentActive
+            ? `<button class="btn" disabled>✓ Current category</button>`
+            : `<button class="btn btn-orange" onclick="setAgeFromCategory(${group.sampleAge}, '${group.key}')">Use this category</button>`}
+          <button class="btn btn-ghost" onclick="closeAgePreview()">Close</button>
+        </div>
+      </div>
+ 
+      <div class="preview-sports">
+        ${group.sports.map(s => {
+          const item = sportInfo(s);
+          return `
+            <div class="mini-sport">
+              <div class="ic">${item.icon}</div>
+              <h4>${item.name}</h4>
+              <p class="muted" style="font-size:.82rem">${item.note}</p>
+              <button onclick="startFiveMinuteTraining('${item.name.replace(/'/g, "\\'")}', ${item.duration || 10})">Train for ${item.duration || 10} min</button>
+            </div>
+          `;
+        }).join("")}
+      </div>
+ 
+      <div class="section-title" style="margin-top:26px">
+        <h3>Training session</h3>
+        <span class="muted">${trainingSession ? "Session in progress" : (sessionLog.length ? sessionLog.length + " logged" : "No sessions yet")}</span>
+      </div>
 
-return map[x]||"🧘";
+      <div class="card">
+        ${trainingSession ? `
+          <p class="muted">Currently training: <b>${trainingSession.activity}</b></p>
+          <div class="eyebrow" id="liveTimer">00:00</div>
+          <button class="btn btn-orange" style="margin-top:12px" onclick="endTrainingSession()">End session</button>
+        ` : `
+          <p class="muted">Choose an activity above for a focused training session.</p>
+          <button class="btn btn-orange" style="margin-top:6px" onclick="startFiveMinuteTraining('${defaultTrainingButton.replace(/'/g, "\\'")}', ${defaultTrainingMinutes})">Start ${defaultTrainingMinutes}-minute training</button>
+        `}
+      </div>
 
+      ${sessionLog.length ? `
+        <div style="margin-top:16px">
+          <div class="eyebrow">RECENT SESSIONS</div>
+          ${sessionLog.slice(0, 5).map(s => `
+            <div class="friend">
+              <div class="avatar">${sportInfo(s.activity).icon}</div>
+              <div><b>${s.activity}</b><div class="muted">${s.duration} min · ${s.date}${s.notes ? " · " + s.notes : ""}</div></div>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      ${isPregnancyGroup ? `
+        <div class="safety-note">
+          🤰 Gentle, low-impact activities only — no contact or high-intensity sports.
+          Pregnancy fitness recommendations are general guidance. Consult a qualified healthcare
+          professional before starting or changing an exercise program during pregnancy.
+        </div>` : ""}
+    </div>
+  `;
+ 
+  if (trainingSession) startLiveTimer();
+ 
+  const cards = document.querySelectorAll(".age-card");
+  cards.forEach(c => c.classList.remove("previewing"));
+  const idx = AGE_GROUPS_DEFINITIONS.findIndex(g => g.key === key);
+  if (cards[idx]) cards[idx].classList.add("previewing");
+ 
+  if (!silent) {
+    if (!wasOpen) showToast(`${group.sports.length} activities for ${group.title}`);
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+ 
+function closeAgePreview() {
+  previewKey = null;
+  document.getElementById("agePreview").innerHTML = "";
+  document.querySelectorAll(".age-card").forEach(c => c.classList.remove("previewing"));
+}
+ 
+function setAgeFromCategory(sampleAge, key) {
+  if (key === "pregnant") {
+    userProfile.pregnancy = "Pregnant";
+  } else {
+    userProfile.pregnancy = "Not Pregnant";
+    userProfile.age = sampleAge;
+  }
+ 
+  const newCat = getAgeCategoryData(userProfile.age);
+  userProfile.preferredSports = userProfile.preferredSports.filter(s => newCat.sports.includes(s));
+ 
+  previewKey = key;
+  applyUserProfile();
+  renderAgeGroupsSection();
+  showToast(`Switched to ${newCat.title}`);
+}
+ 
+// --- PREGNANCY TRAINING SESSION ---
+function openTrainingModal(){
+  const group = groupByKey("pregnant");
+  const sel = document.getElementById("trainingActivity");
+  sel.innerHTML = "";
+  group.sports.forEach(s => {
+    const o = document.createElement("option");
+    o.value = s; o.textContent = s;
+    sel.appendChild(o);
+  });
+  document.getElementById("trainingNotes").value = "";
+  document.getElementById("trainingModal").style.display = "grid";
+}
+ 
+function closeTrainingModal(){
+  document.getElementById("trainingModal").style.display = "none";
+}
+ 
+function beginTrainingSession(){
+  const activity = document.getElementById("trainingActivity").value;
+  const notes = document.getElementById("trainingNotes").value;
+ 
+  trainingSession = { activity, notes, startTime: Date.now(), durationSeconds: 300 };
+  closeTrainingModal();
+  showToast(`Training session started: ${activity} 🤰`);
+ 
+  startLiveTimer();
+ 
+  if (previewKey === "pregnant") showAgeGroupSports("pregnant", true);
 }
 
+function startFiveMinuteTraining(activity, durationMinutes = null){
+  if (trainingSession) {
+    showToast("Finish your current training session first");
+    return;
+  }
 
-// =================================================
-// HOST EVENT
-// =================================================
+  const chosenDuration = durationMinutes !== null && durationMinutes !== undefined ? Number(durationMinutes) : getSportDuration(activity);
+  trainingSession = { activity, notes: "", startTime: Date.now(), durationSeconds: chosenDuration * 60 };
+  showToast(`${chosenDuration}-minute training started: ${activity}`);
+  startLiveTimer();
 
-function host(sport){
-
-document.getElementById("hostSport").value=sport;
-
-document.getElementById("hostModal").style.display="grid";
-
+  if (previewKey) showAgeGroupSports(previewKey, true);
+}
+ 
+function startLiveTimer(){
+  if (trainingTimerInterval) clearInterval(trainingTimerInterval);
+  updateLiveTimer();
+  trainingTimerInterval = setInterval(updateLiveTimer, 1000);
+}
+ 
+function updateLiveTimer(){
+  if (!trainingSession) return;
+  const el = document.getElementById("liveTimer");
+  if (!el) return;
+  const elapsed = Math.floor((Date.now() - trainingSession.startTime) / 1000);
+  const remaining = Math.max(trainingSession.durationSeconds - elapsed, 0);
+  const m = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const s = String(remaining % 60).padStart(2, "0");
+  el.textContent = `${m}:${s}`;
+  if (remaining === 0) endTrainingSession(true);
+}
+ 
+function toDateKey(date) {
+  const d = new Date(date);
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
 }
 
+function computeDayStreak(logEntries = []) {
+  if (!Array.isArray(logEntries) || !logEntries.length) return 0;
 
-function closeModal(){
+  const activityDates = new Set(
+    logEntries
+      .map(entry => entry.dateKey || (entry.date ? toDateKey(entry.date) : null))
+      .filter(Boolean)
+  );
 
-document.getElementById("hostModal").style.display="none";
+  if (!activityDates.size) return 0;
 
+  const today = new Date();
+  const todayKey = toDateKey(today);
+  let cursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  if (!activityDates.has(todayKey)) {
+    cursor = new Date(cursor.getTime() - 24 * 60 * 60 * 1000);
+    if (!activityDates.has(toDateKey(cursor))) return 0;
+  }
+
+  let streak = 0;
+  while (activityDates.has(toDateKey(cursor))) {
+    streak += 1;
+    cursor = new Date(cursor.getTime() - 24 * 60 * 60 * 1000);
+  }
+
+  return streak;
 }
 
+function updateStreakUI() {
+  const streak = computeDayStreak(sessionLog);
+  userProfile.streak = streak;
 
+  const streakValue = document.getElementById("dayStreakValue");
+  if (streakValue) {
+    streakValue.setAttribute("data-count", String(streak));
+    streakValue.textContent = `0 days`;
+  }
+
+  const streakMeta = document.getElementById("dayStreakMeta");
+  if (streakMeta) {
+    streakMeta.textContent = streak >= 5 ? "Excellent rhythm" : (streak >= 2 ? "Keep it going" : "Start the streak");
+  }
+
+  animateStats();
+}
+
+function endTrainingSession(completed = false){
+  if (!trainingSession) return;
+ 
+  const elapsedMin = completed ? 5 : Math.max(1, Math.round((Date.now() - trainingSession.startTime) / 60000));
+  const entryDate = new Date();
+  sessionLog.unshift({
+    activity: trainingSession.activity,
+    duration: elapsedMin,
+    notes: trainingSession.notes,
+    date: entryDate.toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+    dateKey: toDateKey(entryDate)
+  });
+ 
+  trainingSession = null;
+  clearInterval(trainingTimerInterval);
+  trainingTimerInterval = null;
+ 
+  updateStreakUI();
+  showToast(completed ? "5-minute training complete" : "Training session logged");
+ 
+  if (previewKey === "pregnant") showAgeGroupSports("pregnant", true);
+}
+
+// --- APPLY PROFILE ACROSS THE APP ---
+function applyUserProfile() {
+  const isPregnant = userProfile.pregnancy === "Pregnant";
+  const cat = getAgeCategoryData(userProfile.age);
+ 
+  document.getElementById("pregnancyBanner").style.display = isPregnant ? "flex" : "none";
+  const trainingCard = document.getElementById("trainingQuickCard");
+  if (trainingCard) trainingCard.style.display = isPregnant ? "block" : "none";
+ 
+  document.getElementById("miniName").textContent = userProfile.name;
+  document.getElementById("miniAgeGroup").textContent =
+    isPregnant ? `Pregnant 🤰 · ${userProfile.alc}` : `${userProfile.age} yrs · ${userProfile.alc}`;
+ 
+  document.getElementById("dashGreeting").textContent = `Welcome back, ${userProfile.name} 👋`;
+  document.getElementById("heroTag").textContent = cat.dashTitle.toUpperCase();
+  document.getElementById("heroTitle").textContent = cat.dashTitle;
+  document.getElementById("heroFocus").textContent = "Focus: " + cat.focus;
+  document.getElementById("heroBanner").setAttribute("data-emoji", cat.dashEmoji);
+  document.getElementById("commUserName").textContent = userProfile.name;
+ 
+  const preferred = userProfile.preferredSports.filter(s => cat.sports.includes(s));
+  const activeSportsList = preferred.concat(cat.sports.filter(s => !preferred.includes(s)));
+ 
+  // dashboard recommendations
+  const dashRecContainer = document.getElementById("dashRecommendedActivities");
+  dashRecContainer.innerHTML = "";
+ 
+  activeSportsList.slice(0, 4).forEach(sportName => {
+    const item = sportInfo(sportName);
+    let alcLabel = userProfile.alc !== "Open" ? `${userProfile.alc} ` : "";
+    if (isPregnant) alcLabel = "Gentle ";
+ 
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <div style="font-size:34px;line-height:1">${item.icon}</div>
+      <h3 style="margin:10px 0 6px">${alcLabel}${item.name}</h3>
+      <p class="muted">${item.note}</p>
+      <span class="chip">${cat.ageRange}</span>
+      <button class="btn btn-orange" style="width:100%;margin-top:14px" onclick="startFiveMinuteTraining('${item.name.replace(/'/g, "\\'")}', ${item.duration || 10})">Train for ${item.duration || 10} min</button>
+    `;
+    dashRecContainer.appendChild(div);
+  });
+ 
+  // sports hub
+  const sportsGrid = document.getElementById("sportsGrid");
+  sportsGrid.innerHTML = "";
+ 
+  document.getElementById("sportsHubTag").textContent = `${cat.title.toUpperCase()} RECOMMENDATIONS`;
+  document.getElementById("sportsHubTitle").textContent =
+    isPregnant ? "Pregnancy-safe activities 🤰" : `Sports for age ${userProfile.age}`;
+ 
+  activeSportsList.forEach(sportName => {
+    const item = sportInfo(sportName);
+    const alcPrefix = (userProfile.alc !== "Open" && !isPregnant) ? `${userProfile.alc} ` : "";
+ 
+    const card = document.createElement("div");
+    card.className = "sport";
+    card.innerHTML = `
+      <div>
+        <div class="sport-icon">${item.icon}</div>
+        <h2>${alcPrefix}${item.name}</h2>
+        <p class="muted">${item.note}</p>
+        <div style="margin-top:10px">${cat.levels.map(l => `<span class="chip">${l}</span>`).join(" ")}</div>
+      </div>
+      <button onclick="startFiveMinuteTraining('${item.name.replace(/'/g, "\\'")}', ${item.duration || 10})">Train for ${item.duration || 10} min</button>
+    `;
+    sportsGrid.appendChild(card);
+  });
+ 
+  renderChallenges(activeSportsList);
+  populateModalDropdowns(activeSportsList);
+}
+ 
+// --- CHALLENGES ---
+function renderChallenges(sportsList) {
+  const container = document.getElementById("challengesGrid");
+  container.innerHTML = "";
+ 
+  const isPregnant = userProfile.pregnancy === "Pregnant";
+  const cat = getAgeCategoryData(userProfile.age);
+ 
+  sportsList.slice(0, 3).map((sport, idx) => {
+    const prefix = (userProfile.alc !== "Open" && !isPregnant) ? userProfile.alc + " " : "";
+    return {
+      title: `${prefix}${sport} challenge`,
+      desc: isPregnant
+        ? `Complete 3 gentle sessions of ${sport} at your own pace.`
+        : `Complete 3 sessions of ${sport} tailored for ${cat.ageRange}.`,
+      xp: (idx + 1) * 100,
+      sport: sport
+    };
+  }).forEach(c => {
+    const card = document.createElement("div");
+    card.className = "card challenge";
+    card.innerHTML = `
+      <span class="chip chip-orange">+${c.xp} XP</span>
+      <h2 style="margin:12px 0 6px">${c.title}</h2>
+      <p class="muted">${c.desc}</p>
+      <div style="margin-top:10px">
+        <span class="chip">🎂 ${cat.ageRange}</span>
+        ${cat.levels.map(l => `<span class="chip">${l}</span>`).join(" ")}
+      </div>
+      <button onclick="challenge('${c.sport.replace(/'/g, "\\'")}')">Challenge a friend</button>
+    `;
+    container.appendChild(card);
+  });
+}
+ 
+// --- MODAL DROPDOWNS ---
+function populateModalDropdowns(sportsList) {
+  const hostSelect = document.getElementById("hostSport");
+  const challengeSelect = document.getElementById("challengeSport");
+ 
+  hostSelect.innerHTML = "";
+  challengeSelect.innerHTML = "";
+ 
+  const allSports = [];
+  sportsList.forEach(s => { if (!allSports.includes(s)) allSports.push(s); });
+  AGE_GROUPS_DEFINITIONS.forEach(g => g.sports.forEach(s => { if (!allSports.includes(s)) allSports.push(s); }));
+ 
+  allSports.forEach(sport => {
+    const o1 = document.createElement("option");
+    o1.value = sport; o1.textContent = sport;
+    hostSelect.appendChild(o1);
+ 
+    const o2 = document.createElement("option");
+    o2.value = sport; o2.textContent = sport;
+    challengeSelect.appendChild(o2);
+  });
+}
+ 
+// --- PROFILE MODAL ---
+function openProfileModal() {
+  document.getElementById("profName").value = userProfile.name;
+  document.getElementById("profAge").value = userProfile.age;
+  document.getElementById("profALC").value = userProfile.alc;
+  document.getElementById("profPregnancy").value = userProfile.pregnancy;
+  updateModalAgeCategory();
+  document.getElementById("profileModal").style.display = "grid";
+}
+ 
+function updateModalAgeCategory() {
+  const age = parseInt(document.getElementById("profAge").value) || 18;
+  const preg = document.getElementById("profPregnancy").value;
+  const cat = getAgeCategoryData(age, preg);
+  document.getElementById("profAgeCategory").value = cat.title;
+  renderSportsCheckboxes(cat);
+}
+ 
+function renderSportsCheckboxes(cat) {
+  const container = document.getElementById("sportsCheckboxes");
+  container.innerHTML = "";
+  cat.sports.forEach(sport => {
+    const isChecked = userProfile.preferredSports.includes(sport);
+    const label = document.createElement("label");
+    label.innerHTML = `<input type="checkbox" value="${sport}" ${isChecked ? 'checked' : ''}> ${sport}`;
+    container.appendChild(label);
+  });
+}
+ 
+function closeProfileModal() {
+  document.getElementById("profileModal").style.display = "none";
+}
+ 
+function saveProfile() {
+  userProfile.name = document.getElementById("profName").value || "User";
+  userProfile.age = parseInt(document.getElementById("profAge").value) || 20;
+  userProfile.alc = document.getElementById("profALC").value;
+  userProfile.pregnancy = document.getElementById("profPregnancy").value;
+ 
+  const checked = document.querySelectorAll("#sportsCheckboxes input:checked");
+  userProfile.preferredSports = Array.from(checked).map(cb => cb.value);
+ 
+  applyUserProfile();
+  renderAgeGroupsSection();
+  closeProfileModal();
+  showToast("Profile saved");
+}
+ 
+// --- NAVIGATION ---
+function page(name){
+  ["home","age-groups","sports","yoga","challenges","community"].forEach(id => {
+    document.getElementById(id).style.display = "none";
+  });
+ 
+  const el = document.getElementById(name);
+  el.style.display = "block";
+  el.style.animation = "none";
+  void el.offsetWidth;
+  el.style.animation = "";
+ 
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+  const btn = document.getElementById(`nav-${name}`);
+  if(btn) btn.classList.add("active");
+ 
+  if(name === "yoga" && asanas.length === 0) loadYoga();
+ 
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+ 
+// --- STATS ---
+function animateStats(){
+  document.querySelectorAll("[data-count]").forEach(el=>{
+    const target = parseFloat(el.getAttribute("data-count")) || 0;
+    const suffix = el.getAttribute("data-suffix") || "";
+    let start = null;
+    const duration = 900;
+ 
+    function step(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const value = target * progress;
+      el.textContent = (Number.isInteger(target) ? Math.round(value) : value.toFixed(1)) + suffix;
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+ 
+// --- YOGA API ---
+async function loadYoga(){
+  try{
+    const response = await fetch(API + "/api/yoga");
+    const result = await response.json();
+    if(!result.success) throw new Error("Yoga API error");
+    asanas = result.data;
+    renderYoga();
+  } catch(error){
+    asanas = [
+      { name: "Tadasana", englishName: "Mountain Pose", description: "Improves posture and balance.", focus: "Posture & balance", difficulty: "Beginner", duration: 30, animation: "tadasana", instructions: ["Stand upright, feet together", "Distribute weight evenly", "Breathe deeply"], breathing: "Inhale as you lengthen the spine.", commonMistakes: ["Slouching shoulders"] },
+      { name: "Shavasana", englishName: "Corpse Pose", description: "Restorative relaxation pose.", focus: "Relaxation", difficulty: "Beginner", duration: 60, animation: "shavasana", instructions: ["Lie flat on the back", "Close the eyes and release tension"], breathing: "Slow, deep abdominal breathing.", commonMistakes: ["Fidgeting"] }
+    ];
+    renderYoga();
+    showToast("Yoga service offline — showing built-in poses");
+  }
+}
+ 
+function renderYoga(){
+  if(!asanas.length) return;
+  const yoga = asanas[current];
+ 
+  document.getElementById("counter").textContent = `POSE ${current + 1} OF ${asanas.length}`;
+  document.getElementById("yogaName").textContent = yoga.name;
+  document.getElementById("english").textContent = yoga.englishName;
+  document.getElementById("description").textContent = yoga.description;
+  document.getElementById("focus").textContent = yoga.focus;
+  document.getElementById("difficulty").textContent = yoga.difficulty;
+  document.getElementById("duration").textContent = yoga.duration + " seconds";
+ 
+  const poseEl = document.getElementById("pose");
+  poseEl.textContent = emoji(yoga.animation);
+  poseEl.style.animation = "none";
+  void poseEl.offsetWidth;
+  poseEl.style.animation = "";
+ 
+  const instructions = document.getElementById("instructions");
+  instructions.innerHTML = "";
+  (yoga.instructions || []).forEach(x => {
+    const li = document.createElement("li");
+    li.textContent = x;
+    instructions.appendChild(li);
+  });
+ 
+  document.getElementById("breathing").textContent = yoga.breathing;
+ 
+  const mistakes = document.getElementById("mistakes");
+  mistakes.innerHTML = "";
+  (yoga.commonMistakes || []).forEach(x => {
+    const li = document.createElement("li");
+    li.textContent = x;
+    mistakes.appendChild(li);
+  });
+ 
+  renderYogaCards();
+}
+ 
+function renderYogaCards(){
+  const list = document.getElementById("asanaList");
+  list.innerHTML = "";
+  asanas.forEach((x, i) => {
+    const div = document.createElement("div");
+    div.className = "asana";
+    div.innerHTML = `
+      <div style="font-size:34px;line-height:1">${emoji(x.animation)}</div>
+      <h4 style="margin:8px 0 2px">${x.name}</h4>
+      <p class="muted">${x.englishName || ""}</p>
+      ${x.difficulty ? `<span class="chip">${x.difficulty}</span>` : ""}
+      <button onclick="selectYoga(${i})">Practice</button>
+    `;
+    list.appendChild(div);
+  });
+}
+ 
+function selectYoga(i){ current = i; renderYoga(); }
+function next(){ if(asanas.length){ current = (current + 1) % asanas.length; renderYoga(); } }
+function prev(){ if(asanas.length){ current = (current - 1 + asanas.length) % asanas.length; renderYoga(); } }
+ 
+function emoji(x){
+  const map = { "shavasana":"🧘", "tadasana":"🧍", "trikonasana":"🤸", "downward-dog":"🧘", "tree":"🌳", "forward-bend":"🧘" };
+  return map[x] || "🧘";
+}
+ 
+// --- HOST & CHALLENGE ---
+function hostModalOpen(sport){
+  const select = document.getElementById("hostSport");
+  if(sport && [...select.options].some(o => o.value === sport)) select.value = sport;
+  document.getElementById("hostModal").style.display = "grid";
+}
+ 
+function closeModal(id){
+  document.getElementById(id).style.display = "none";
+}
+ 
 async function createEvent(){
-
-const sport=
-document.getElementById("hostSport").value;
-
-const name=
-document.getElementById("eventName").value;
-
-const date=
-document.getElementById("eventDate").value;
-
-const location=
-document.getElementById("eventLocation").value;
-
-const players=
-document.getElementById("players").value;
-
-
-if(!name || !date || !location){
-
-showToast(
-"Please fill all event details"
-);
-
-return;
-
+  const sport = document.getElementById("hostSport").value;
+  const name = document.getElementById("eventName").value;
+  const date = document.getElementById("eventDate").value;
+  const location = document.getElementById("eventLocation").value;
+  const players = document.getElementById("players").value;
+ 
+  if(!name || !date || !location){
+    showToast("Add a name, date and location to continue");
+    return;
+  }
+ 
+  const cat = getAgeCategoryData(userProfile.age);
+ 
+  try{
+    await fetch(API + "/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sport, name, date, location,
+        maxPlayers: Number(players),
+        ageCategory: cat.ageRange,
+        alc: userProfile.alc
+      })
+    });
+  } catch(e){
+    console.log("Event API not available", e);
+  }
+ 
+  closeModal('hostModal');
+  showToast(`${sport} event created`);
 }
-
-
-/*
- Try your existing backend first.
- If the backend route requires authentication,
- the demo still confirms the event locally.
-*/
-
-try{
-
-await fetch(
-API+"/api/events",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-sport,
-name,
-date,
-location,
-maxPlayers:Number(players)
-})
-}
-);
-
-}catch(e){
-
-console.log(
-"Event API not available",
-e
-);
-
-}
-
-
-closeModal();
-
-showToast(
-`${sport} event created! 🏆`
-);
-
-}
-
-
-// =================================================
-// CHALLENGE
-// =================================================
-
+ 
 function openChallenge(){
-
-document.getElementById(
-"challengeModal"
-).style.display="grid";
-
+  document.getElementById("challengeModal").style.display = "grid";
 }
-
-
-function closeChallenge(){
-
-document.getElementById(
-"challengeModal"
-).style.display="none";
-
-}
-
-
+ 
 function challenge(sport){
-
-document.getElementById(
-"challengeSport"
-).value=sport;
-
-openChallenge();
-
+  const select = document.getElementById("challengeSport");
+  if([...select.options].some(o => o.value === sport)) select.value = sport;
+  openChallenge();
 }
-
-
+ 
 async function sendChallenge(){
-
-const sport=
-document.getElementById(
-"challengeSport"
-).value;
-
-const friend=
-document.getElementById(
-"friendName"
-).value;
-
-
-if(!friend){
-
-showToast(
-"Enter your friend's name"
-);
-
-return;
-
+  const sport = document.getElementById("challengeSport").value;
+  const friend = document.getElementById("friendName").value;
+ 
+  if(!friend){
+    showToast("Enter your friend's name");
+    return;
+  }
+ 
+  closeModal('challengeModal');
+  showToast(`${sport} challenge sent to ${friend}`);
 }
-
-
-try{
-
-await fetch(
-API+"/api/challenges",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-sport,
-friend
-})
-}
-);
-
-}catch(e){
-
-console.log(
-"Challenge API unavailable"
-);
-
-}
-
-
-closeChallenge();
-
-showToast(
-`${sport} challenge sent to ${friend}! ⚔️`
-);
-
-}
-
-
-// =================================================
-// TOAST
-// =================================================
-
+ 
 function showToast(message){
-
-const toast=
-document.getElementById("toast");
-
-toast.textContent=message;
-
-toast.classList.add("show");
-
-setTimeout(()=>{
-toast.classList.remove("show");
-},2500);
-
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2600);
 }
-
+ 
+// close any modal by clicking the backdrop or pressing Escape
+document.querySelectorAll(".modal").forEach(m => {
+  m.addEventListener("click", e => { if(e.target === m) m.style.display = "none"; });
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") document.querySelectorAll(".modal").forEach(m => m.style.display = "none");
+});
 </script>
-
 </body>
 </html>
+ 
